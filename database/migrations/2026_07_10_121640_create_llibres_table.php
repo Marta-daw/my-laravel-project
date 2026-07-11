@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('idioma_id')->constrained();
             $table->enum('leido', ['Sí', 'No', 'En progreso'])->default('No');
             $table->tinyInteger('puntuación')->nullable();
+            $table->longText('portada')->nullable();
             $table->timestamps();
         });
 

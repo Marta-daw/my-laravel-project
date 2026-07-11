@@ -15,6 +15,7 @@ class Llibre extends Model
         'idioma_id' => 'required|exists:idiomas,id',
         'leido' => 'required|enum:Sí,No,En progreso|default:No',
         'puntuación' => 'nullable|integer|between:0,5',
+        'portada' => 'nullable|string',
     ];
 
     //Un libro tiene un idioma
