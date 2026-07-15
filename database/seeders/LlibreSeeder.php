@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class LlibreSeeder extends Seeder
 {
@@ -23,29 +24,31 @@ class LlibreSeeder extends Seeder
             'Raquel Riba Rossy' => 4,
             'Carmen Laforet' => 5,
             'Claudio Stassi' => 6,
-            'Julie Maroh' => 7,
-            'Marina Velasco' => 8,
-            'Ana Oncina' => 9,
-            'Paloma Alma' => 10,
-            'R.J. Palacio' => 11,
-            'Alfonso Casas' => 12,
-            'Guillem Clua' => 13,
-            'Mónica Gutiérrez' => 14,
-            'Shea Ernshaw' => 15,
-            'Eiko Kadono' => 16,
-            'Daniella Martí' => 17,
-            'Carlos Ruiz Zafón' => 18,
-            'William Shakespeare' => 19,
-            'Mercè Rodoreda' => 20,
-            'Elsa Punset' => 21,
-            'Taylor Jenkins Reid' => 22,
-            'Serena Valentino' => 23,
-            'Joël Dicker' => 24,
-            'Guillermo Del Toro' => 25,
-            'Chuck Hogan' => 26,
-            'Michael Ende' => 27,
-            'Stanisław Lem' => 28,
-            'Diana Wynne Jones' => 29,
+            'Disney Studio' => 7,
+            'Julie Maroh' => 8,
+            'Marina Velasco' => 9,
+            'Ana Oncina' => 10,
+            'Paloma Alma' => 11,
+            'R.J. Palacio' => 12,
+            'Alfonso Casas' => 13,
+            'Guillem Clua' => 14,
+            'Mónica Gutiérrez' => 15,
+            'Shea Ernshaw' => 16,
+            'Eiko Kadono' => 17,
+            'Daniella Martí' => 18,
+            'Carlos Ruiz Zafón' => 19,
+            'William Shakespeare' => 20,
+            'Mercè Rodoreda' => 21,
+            'Elsa Punset' => 22,
+            'Taylor Jenkins Reid' => 23,
+            'Serena Valentino' => 24,
+            'Joël Dicker' => 25,
+            'Guillermo Del Toro' => 26,
+            'Chuck Hogan' => 27,
+            'Michael Ende' => 28,
+            'Stanisław Lem' => 29,
+            'Diana Wynne Jones' => 30,
+            'Varios Autores' => 31,
         ];
 
         // Map de categorias para hacer que el codigo sea mas leible
@@ -330,7 +333,7 @@ class LlibreSeeder extends Seeder
                 'titulo' => 'La veritat sobre el cas Harry Quebert',
                 'páginas' => 688,
                 'sinopsis' => 'El jove escriptor Marcus Goldman, bloquejat, s\'instal·la a la casa del seu mentor Harry Quebert a New Hampshire. Quan troben el cadàver d\'una jove als jardins de la casa, Harry és arrestat i Marcus investiga la veritat d\'un crim de trenta anys enrere.',
-                'idioma_id' => 5,
+                'idioma_id' => 1,
                 'leido' => 'No',
                 'puntuación' => null,
                 'portada' => '../public/laVeritatSobreElCasHarryQuebert.avif',
@@ -345,7 +348,7 @@ class LlibreSeeder extends Seeder
                     banyat per les llums de l\'aeroport, en complet silenci. Sembla una gegantesca làpida blanca que brilla contra el fosc cel de la nit. Llavors una bretxa negra apareix 
                     en el fuselatge: és una porta que s\'obre des de dins amb una lentitud glacial… Sempre han estat aquí. Vampirs. Niant i alimentant-se. En secret i foscor. A l\'espera. 
                     Ara ha arribat el seu moment. En una setmana, Manhattan haurà desaparegut. En tres mesos, tot el país. En sis mesos, el món sencer.',
-                'idioma_id' => 5,
+                'idioma_id' => 2,
                 'leido' => 'No',
                 'puntuación' => null,
                 'portada' => '../public/laVeritatSobreElCasHarryQuebert.avif',
@@ -378,5 +381,190 @@ class LlibreSeeder extends Seeder
                 'portada' => '../public/losMundosDeChrestomanci.avif',
             ],
         ];
+
+        // Insertar los libros en la base de datos
+        foreach ($llibres as $llibre) {
+            DB::table('llibres')->insert($llibre);
+        }
+
+        // Insertar datos en la tabla autor - libro
+        DB::table('autor_llibre')->insert([
+            ['autor_id' => $autorsMap['Sandra Sabatés'],    'llibre_id' => 1],  // No me cuentes cuentos
+            ['autor_id' => $autorsMap['Judit Crehuet'],     'llibre_id' => 1],  // No me cuentes cuentos
+            ['autor_id' => $autorsMap['Leticia Dolera'],    'llibre_id' => 2],  // Morder la manzana
+            ['autor_id' => $autorsMap['Raquel Riba Rossy'], 'llibre_id' => 2],  // Morder la manzana
+            ['autor_id' => $autorsMap['Carmen Laforet'],    'llibre_id' => 3],  // Nada
+            ['autor_id' => $autorsMap['Claudio Stassi'],    'llibre_id' => 3],  // Nada
+            ['autor_id' => $autorsMap['Varios Autores'],    'llibre_id' => 4],  // Voces que cuentan
+            ['autor_id' => $autorsMap['Disney Studio'],     'llibre_id' => 5],  // Pesadilla antes de Navidad
+            ['autor_id' => $autorsMap['Alfonso Casas'],     'llibre_id' => 6],  // El final de todos los agostos
+            ['autor_id' => $autorsMap['Daniella Martí'],    'llibre_id' => 7],  // Quiero pensar que no es demasiado tarde
+            ['autor_id' => $autorsMap['Julie Maroh'],       'llibre_id' => 8],  // El azul es un color cálido
+            ['autor_id' => $autorsMap['Marina Velasco'],    'llibre_id' => 9],  // Que no se olvide
+            ['autor_id' => $autorsMap['Ana Oncina'],        'llibre_id' => 10], // Los f*cking 30
+            ['autor_id' => $autorsMap['Paloma Alma'],       'llibre_id' => 11], // Cyclo
+            ['autor_id' => $autorsMap['R.J. Palacio'],      'llibre_id' => 12], // Wonder
+            ['autor_id' => $autorsMap['Alfonso Casas'],     'llibre_id' => 13], // Monstruosamente
+            ['autor_id' => $autorsMap['Guillem Clua'],      'llibre_id' => 14], // Smiley
+            ['autor_id' => $autorsMap['Mónica Gutiérrez'],  'llibre_id' => 15], // Club de lectura para corazones despistados
+            ['autor_id' => $autorsMap['Raquel Riba Rossy'], 'llibre_id' => 16], // Lola Vendetta
+            ['autor_id' => $autorsMap['Shea Ernshaw'],      'llibre_id' => 17], // Larga vida a la reina de Halloween
+            ['autor_id' => $autorsMap['Eiko Kadono'],       'llibre_id' => 18], // Nicky, la aprendiz de bruja
+            ['autor_id' => $autorsMap['Ana Oncina'],        'llibre_id' => 19], // Just Friends (Integral)
+            ['autor_id' => $autorsMap['Carlos Ruiz Zafón'], 'llibre_id' => 20], // El Palau de la Mitjanit
+            ['autor_id' => $autorsMap['William Shakespeare'], 'llibre_id' => 21], // El rey Lear
+            ['autor_id' => $autorsMap['Mercè Rodoreda'],    'llibre_id' => 22], // Mirall Trencat
+            ['autor_id' => $autorsMap['Carlos Ruiz Zafón'], 'llibre_id' => 23], // Les Llums de Setembre
+            ['autor_id' => $autorsMap['Elsa Punset'],       'llibre_id' => 24], // Felices
+            ['autor_id' => $autorsMap['Taylor Jenkins Reid'], 'llibre_id' => 25], // Los siete maridos de Evelyn Hugo
+            ['autor_id' => $autorsMap['Serena Valentino'],  'llibre_id' => 26], // La Emperatriz del Mal
+            ['autor_id' => $autorsMap['Joël Dicker'],       'llibre_id' => 27], // La veritat sobre el cas Harry Quebert
+            ['autor_id' => $autorsMap['Guillermo Del Toro'], 'llibre_id' => 28], // Nocturna
+            ['autor_id' => $autorsMap['Chuck Hogan'],       'llibre_id' => 28], // Nocturna (coautor)
+            ['autor_id' => $autorsMap['Michael Ende'],      'llibre_id' => 29], // Momo
+            ['autor_id' => $autorsMap['Stanisław Lem'],     'llibre_id' => 30], // Retorno de las Estrellas
+            ['autor_id' => $autorsMap['Diana Wynne Jones'], 'llibre_id' => 31], // Los Mundos de Chrestomanci
+        ]);
+
+        // Insertar datos en la tabla categoria - libro
+        DB::table('categoria_llibre')->insert([
+            // 1. No me cuentes cuentos
+            ['categoria_id' => $categoriasMap['Assaig General'], 'llibre_id' => 1],
+            ['categoria_id' => $categoriasMap['Societat'],       'llibre_id' => 1],
+
+            // 2. Morder la manzana
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 2],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 2],
+            ['categoria_id' => $categoriasMap['Assaig General'], 'llibre_id' => 2],
+
+            // 3. Nada
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 3],
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 3],
+
+            // 4. Voces que cuentan
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 4],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 4],
+
+            // 5. Pesadilla antes de Navidad
+            ['categoria_id' => $categoriasMap['Cinema'],         'llibre_id' => 5],
+            ['categoria_id' => $categoriasMap['Art'],            'llibre_id' => 5],
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 5],
+
+            // 6. El final de todos los agostos
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 6],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 6],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 6],
+
+            // 7. Quiero pensar que no es demasiado tarde
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 7],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 7],
+
+            // 8. El azul es un color cálido
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 8],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 8],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 8],
+
+            // 9. Que no se olvide
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 9],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 9],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 9],
+
+            // 10. Los f*cking 30
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 10],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 10],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 10],
+
+            // 11. Cyclo
+            ['categoria_id' => $categoriasMap['No ficció'],      'llibre_id' => 11],
+            ['categoria_id' => $categoriasMap['Salut i Benestar'], 'llibre_id' => 11],
+
+            // 12. Wonder
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 12],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 12],
+
+            // 13. Monstruosamente
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 13],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 13],
+
+            // 14. Smiley
+            ['categoria_id' => $categoriasMap['Teatre'],         'llibre_id' => 14],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 14],
+
+            // 15. Club de lectura para corazones despistados
+            ['categoria_id' => $categoriasMap['Novel·la Romàntica'], 'llibre_id' => 15],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 15],
+
+            // 16. Lola Vendetta
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 16],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 16],
+
+            // 17. Larga vida a la reina de Halloween
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 17],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 17],
+
+            // 18. Nicky, la aprendiz de bruja
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 18],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 18],
+
+            // 19. Just Friends (Integral)
+            ['categoria_id' => $categoriasMap['Manga'],          'llibre_id' => 19],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 19],
+
+            // 20. El Palau de la Mitjanit
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 20],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 20],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 20],
+
+            // 21. El rey Lear
+            ['categoria_id' => $categoriasMap['Teatre'],         'llibre_id' => 21],
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 21],
+
+            // 22. Mirall Trencat
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 22],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 22],
+            ['categoria_id' => $categoriasMap['Novel·la Històrica'], 'llibre_id' => 22],
+
+            // 23. Les Llums de Setembre
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 23],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 23],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 23],
+
+            // 24. Felices
+            ['categoria_id' => $categoriasMap['Assaig General'], 'llibre_id' => 24],
+            ['categoria_id' => $categoriasMap['Psicologia'],     'llibre_id' => 24],
+            ['categoria_id' => $categoriasMap['Filosofia'],      'llibre_id' => 24],
+
+            // 25. Los siete maridos de Evelyn Hugo
+            ['categoria_id' => $categoriasMap['Novel·la Romàntica'], 'llibre_id' => 25],
+            ['categoria_id' => $categoriasMap['Novel·la Històrica'], 'llibre_id' => 25],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 25],
+
+            // 26. La Emperatriz del Mal
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 26],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 26],
+
+            // 27. La veritat sobre el cas Harry Quebert
+            ['categoria_id' => $categoriasMap['Thriller'],       'llibre_id' => 27],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 27],
+            ['categoria_id' => $categoriasMap['Novel·la Policíaca'], 'llibre_id' => 27],
+
+            // 28. Nocturna
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 28],
+            ['categoria_id' => $categoriasMap['Thriller'],       'llibre_id' => 28],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 28],
+
+            // 29. Momo
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 29],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 29],
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 29],
+
+            // 30. Retorno de las Estrellas
+            ['categoria_id' => $categoriasMap['Ciència-ficció'], 'llibre_id' => 30],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 30],
+
+            // 31. Los Mundos de Chrestomanci
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 31],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 31],
+        ]);
     }
 }

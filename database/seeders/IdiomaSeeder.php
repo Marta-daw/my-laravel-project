@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class IdiomaSeeder extends Seeder
 {
@@ -15,9 +16,9 @@ class IdiomaSeeder extends Seeder
 
         // Map de idiomas para insertar en la base de datos
         $idiomas = [
-            ['nombre' => 'Català'],
-            ['nombre' => 'Español'],
-            ['nombre' => 'English'],
+            ['idioma' => 'Català'],
+            ['idioma' => 'Español'],
+            ['idioma' => 'English'],
         ];
 
         DB::table('idiomas')->insert($idiomas);

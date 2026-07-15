@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AutorSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class AutorSeeder extends Seeder
             ['nombre' => 'Carmen',    'apellido_1' => 'Laforet',   'apellido_2' => null],
             ['nombre' => 'Claudio',   'apellido_1' => 'Stassi',    'apellido_2' => null],
             // Llista 1
+            ['nombre' => 'Disney',     'apellido_1' => 'Studio',    'apellido_2' => null],
             ['nombre' => 'Julie',     'apellido_1' => 'Maroh',     'apellido_2' => null],
             ['nombre' => 'Marina',    'apellido_1' => 'Velasco',   'apellido_2' => null],
             ['nombre' => 'Ana',       'apellido_1' => 'Oncina',    'apellido_2' => null],
@@ -46,6 +48,7 @@ class AutorSeeder extends Seeder
             ['nombre' => 'Michael',   'apellido_1' => 'Ende',      'apellido_2' => null],
             ['nombre' => 'Stanisław', 'apellido_1' => 'Lem',       'apellido_2' => null],
             ['nombre' => 'Diana',     'apellido_1' => 'Wynne',     'apellido_2' => 'Jones'],
+            ['nombre' => 'Varios',     'apellido_1' => 'Autores',   'apellido_2' => null],
         ];
 
         // Insertar los autores en la base de datos

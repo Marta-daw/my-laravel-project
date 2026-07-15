@@ -17,13 +17,13 @@ return new class extends Migration
             $table->integer('páginas');
             $table->longText('sinopsis');
             $table->foreignId('idioma_id')->constrained();
-            $table->enum('leido', ['Sí', 'No', 'En progreso'])->default('No');
+            $table->enum('leido', ['Sí', 'No', 'En proceso'])->default('No');
             $table->tinyInteger('puntuación')->nullable();
             $table->longText('portada')->nullable();
             $table->timestamps();
         });
 
-        //Restricción de puntuación CHECK para un rango entre 0 y 5 (ambos incluidos)
+        // Restricción de puntuación CHECK para un rango entre 0 y 5 (ambos incluidos)
         DB::statement('ALTER TABLE llibres ADD CONSTRAINT check_puntuación CHECK (puntuación BETWEEN 0 AND 5)');
     }
 
