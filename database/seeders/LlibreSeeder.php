@@ -1,0 +1,570 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class LlibreSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DB::table('llibres')->delete();
+        DB::table('autor_llibre')->delete();
+        DB::table('categoria_llibre')->delete();
+
+        // Map de autores para hacer que el codigo sea mas leible
+        $autorsMap = [
+            'Sandra Sabatés' => 1,
+            'Judit Crehuet' => 2,
+            'Leticia Dolera' => 3,
+            'Raquel Riba Rossy' => 4,
+            'Carmen Laforet' => 5,
+            'Claudio Stassi' => 6,
+            'Disney Studio' => 7,
+            'Julie Maroh' => 8,
+            'Marina Velasco' => 9,
+            'Ana Oncina' => 10,
+            'Paloma Alma' => 11,
+            'R.J. Palacio' => 12,
+            'Alfonso Casas' => 13,
+            'Guillem Clua' => 14,
+            'Mónica Gutiérrez' => 15,
+            'Shea Ernshaw' => 16,
+            'Eiko Kadono' => 17,
+            'Daniella Martí' => 18,
+            'Carlos Ruiz Zafón' => 19,
+            'William Shakespeare' => 20,
+            'Mercè Rodoreda' => 21,
+            'Elsa Punset' => 22,
+            'Taylor Jenkins Reid' => 23,
+            'Serena Valentino' => 24,
+            'Joël Dicker' => 25,
+            'Guillermo Del Toro' => 26,
+            'Chuck Hogan' => 27,
+            'Michael Ende' => 28,
+            'Stanisław Lem' => 29,
+            'Diana Wynne Jones' => 30,
+            'Varios Autores' => 31,
+        ];
+
+        // Map de categorias para hacer que el codigo sea mas leible
+        $categoriasMap = [
+            'Art' => 1,
+            'Assaig General' => 2,
+            'Biografia' => 3,
+            'Ciència' => 4,
+            'Tecnologia' => 5,
+            'Ciència-ficció' => 6,
+            'Cinema' => 7,
+            'Còmic' => 8,
+            'Cuina' => 9,
+            'Disseny' => 10,
+            'Estil de vida' => 11,
+            'Fantasia' => 12,
+            'Filosofia' => 13,
+            'Història' => 14,
+            'Infantil i Juvenil' => 15,
+            'LGTBIQ+' => 16,
+            'Manga' => 17,
+            'Memòries' => 18,
+            'Música' => 19,
+            'Natura' => 20,
+            'Narrativa General' => 21,
+            'No ficció' => 22,
+            'Novel·la Clàssica' => 23,
+            'Novel·la Gràfica' => 24,
+            'Novel·la Històrica' => 25,
+            'Novel·la Negra' => 26,
+            'Novel·la Policíaca' => 27,
+            'Novel·la Romàntica' => 28,
+            'Novel·la Sentimental' => 29,
+            'Poesia' => 30,
+            'Política' => 31,
+            'Psicologia' => 32,
+            'Salut i Benestar' => 33,
+            'Societat' => 34,
+            'Teatre' => 35,
+            'Thriller' => 36,
+            'Viatges' => 37,
+        ];
+
+        // Map de libros para insertar en la base de datos
+        $llibres = [
+            [
+                'titulo' => 'No me cuentes cuentos',
+                'páginas' => 192,
+                'sinopsis' => 'Blancanieves se lanzó en brazos de un amor que creyó perfecto y que la acabó anulando; la Bella Durmiente cayó en un sueño forzado y, cuando despertó, había sufrido una violación; a Ariel le arrancaron una parte de su cuerpo bajo el pretexto de alcanzar la pureza; Caperucita fue a las fiestas de San Fermín y fue violada por cinco lobos, la Manada de Pamplona. Todos ellos son testimonios reales.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/noMeCuentesCuentos.avif',
+            ],
+            [
+                'titulo' => 'Morder la manzana',
+                'páginas' => 264,
+                'sinopsis' => 'Adaptació en còmic del llibre de Leticia Dolera. Un recorregut vital feminista en el que l\'autora explica per què és feminista i per què totes hauríem de ser-ho, des d\'Eva fins a les dones valentes que van marcar el camí.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 4,
+                'portada' => '../public/morderLaManzana.avif',
+            ],
+            [
+                'titulo' => 'Nada',
+                'páginas' => 208,
+                'sinopsis' => 'Adaptació al còmic de la novel·la de Carmen Laforet. Poc anys després de la guerra civil, l\'Andrea arriba a Barcelona per estudiar. L\'ambient familiar que s\'hi troba és asfixiant i violent, molt lluny de les seves esperances.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 4,
+                'portada' => '../public/nada.avif',
+            ],
+            [
+                'titulo' => 'Voces que cuentan',
+                'páginas' => 144,
+                'sinopsis' => 'Antologia feminista amb 9 relats curts d\'autores rellevants del panorama sociocultural actual, il·lustrats per les millors dibuixants contemporànies. Tracta el feminisme, la identitat i l\'empoderament des de perspectives molt diverses.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/vocesQueCuentan.avif',
+            ],
+            [
+                'titulo' => 'Pesadilla antes de Navidad',
+                'páginas' => 64,
+                'sinopsis' => 'Edició de luxe del clàssic de Tim Burton amb esbossos i il·lustracions dels artistes originals i peces d\'art conceptual dels il·lustradors de l\'estudi Disney. Una versió vintage per reviure la màgia del film.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/pesadillaAntesDeNavidad.avif',
+            ],
+            [
+                'titulo' => 'El final de todos los agostos',
+                'páginas' => 160,
+                'sinopsis' => 'Poc abans de casar-se, el Dani viatja al poble costaner on veraneava de petit amb el pretext d\'un projecte fotogràfic. Un viatge físic i interior per respondre la pregunta: «I si…?». Una història sobre la nostàlgia i l\'amistat.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/elFinalDeTodosLosAgostos.avif',
+            ],
+            [
+                'titulo' => 'Quiero pensar que no es demasiado tarde',
+                'páginas' => 144,
+                'sinopsis' => 'La Carmenza i la seva creadora tornen en una novel·la gràfica sobre la identitat, els records que ens conformen i l\'amor: per la família, per la vida, per un mateix. Un cant a la vida i a l\'esperança.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 4,
+                'portada' => '../public/quieroPensarQueNoEsDemasiado.avif',
+            ],
+            [
+                'titulo' => 'El azul es un color cálido',
+                'páginas' => 160,
+                'sinopsis' => 'La Clémentine és una adolescent sense problemes fins que es creua amb l\'Emma, una noia de cabell blau. Una història d\'amor entre dues dones descrita amb delicadesa. Va guanyar el premi del públic al Festival d\'Angulema 2011.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 4,
+                'portada' => '../public/elAzulEsUnColorCalido.avif',
+            ],
+            [
+                'titulo' => 'Que no se olvide',
+                'páginas' => 216,
+                'sinopsis' => 'Sis persones grans membres de la comunitat LGTBIQ+ que van acceptar la seva orientació sexual en una època sense referents. Un recordatori de la lluita pels drets d\'aquest col·lectiu. Premi Internacional de Novel·la Gràfica Fnac-Salamandra Graphic 2023.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 4,
+                'portada' => '../public/queNoSeOlvide.avif',
+            ],
+            [
+                'titulo' => 'Los f*cking 30',
+                'páginas' => 144,
+                'sinopsis' => 'Creies que als 30 la teva vida seria com un episodi de Friends? Un còmic humorístic sobre la crisi dels trenta, les expectatives que no es compleixen i com sobreviure-hi.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/losFucking30.avif',
+            ],
+            [
+                'titulo' => 'Cyclo',
+                'páginas' => 192,
+                'sinopsis' => 'Guia d\'educació menstrual per aprendre a viure el cicle de manera positiva i sostenible. Aborda els tabús al voltant de la menstruació, les alternatives ecològiques als productes d\'higiene i el cicle com a eina d\'empoderament.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 4,
+                'portada' => '../public/cyclo.avif',
+            ],
+            [
+                'titulo' => 'Wonder',
+                'páginas' => 413,
+                'sinopsis' => 'L\'August Pullman té una malformació facial i aquest any anirà per primera vegada a l\'escola. Una novel·la sobre créixer en l\'adversitat, l\'acceptació i el bullying, narrada des de múltiples perspectives. Número 1 al New York Times.',
+                'idioma_id' => 1,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/wonder.avif',
+            ],
+            [
+                'titulo' => 'Monstruosamente',
+                'páginas' => 144,
+                'sinopsis' => 'L\'autor ens presenta els seus monstres interiors: els dubtes de la nit, la síndrome de l\'impostor, les inseguretats quotidianes. Un còmic sobre aprendre a conviure i fins i tot riure\'s dels propis monstres.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/monstruosamente.avif',
+            ],
+            [
+                'titulo' => 'Smiley',
+                'páginas' => 192,
+                'sinopsis' => 'Dos textos teatrals reunits: Smiley, una historia de amor (2012) i Smiley, después del amor (2020). L\'Àlex i el Bruno, dos homes molt diferents que s\'enamoren. Base de la sèrie de Netflix.',
+                'idioma_id' => 1,
+                'leido' => 'Sí',
+                'puntuación' => 3,
+                'portada' => '../public/smiley.avif',
+            ],
+            [
+                'titulo' => 'Club de lectura para corazones despistados',
+                'páginas' => 288,
+                'sinopsis' => 'L\'Abril, sense feina ni pis, s\'amaga al poble pirinenc de la seva infància per reobrir el club de lectura local. Haurà de compartir casa amb l\'Alex, un noi misteriós. Novel·la romàntica plena de referències literàries.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/clubDeLecturaParaCorazonesDespistados.avif',
+            ],
+            [
+                'titulo' => 'Lola Vendetta',
+                'páginas' => 168,
+                'sinopsis' => 'La Lola Vendetta és una jove al·lèrgica a les injustícies que usa la katana contra el masclisme. Després de deixar una relació avorrida, aprèn a viure sola i a trobar l\'amor propi. Novel·la gràfica feminista.',
+                'idioma_id' => 2,
+                'leido' => 'Sí',
+                'puntuación' => 5,
+                'portada' => '../public/lolaVendetta.avif',
+            ],
+            [
+                'titulo' => 'Larga vida a la reina de Halloween',
+                'páginas' => 320,
+                'sinopsis' => 'La Sally Skellington és la nova reina de Halloween. El seu rol l\'aclapara i, quan descobreix per accident la Aldea del Somni, es desencadenen events sinistres. Seqüela oficial de Pesadilla antes de Navidad.',
+                'idioma_id' => 2,
+                'leido' => 'En proceso',
+                'puntuación' => null,
+                'portada' => '../public/largaVidaALaReinaDeHalloween.avif',
+            ],
+            [
+                'titulo' => 'Nicky, la aprendiz de bruja',
+                'páginas' => 208,
+                'sinopsis' => 'Com dicta la tradició, la Nicky ha de passar un any fora de casa per valdre\'s per si mateixa. Ella i el seu gat parlador busquen una ciutat on oferir els seus serveis màgics. La novel·la en la qual es basa la pel·lícula d\'Studio Ghibli.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/nickyLaAprendizDeBruja.avif',
+            ],
+            [
+                'titulo' => 'Just Friends (Integral)',
+                'páginas' => 280,
+                'sinopsis' => 'L\'Erika és una adolescent solitària que la seva mare apunta a un campament d\'estiu. Edició integral que inclou Just Friends i totes les històries curtes d\'Ana Oncina a Planeta Manga. Premi Plata al International Manga Award del Japó.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/justFriends.avif',
+            ],
+            // Llista 2
+            [
+                'titulo' => 'El Palau de la Mitjanit',
+                'páginas' => 304,
+                'sinopsis' => 'Calcuta, 1932. Un tren en flames travessa la ciutat i un espectre de foc sembra el terror. El dia abans de complir setze anys, el Ben, la Sheere i els seus amics hauran d\'enfrontar-se al més terrible enigma de la historia de la ciutat dels palaus. Segon volum de la Trilogia de la Boira.',
+                'idioma_id' => 1,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/elPalauDeLaMitjanit.avif',
+            ],
+            [
+                'titulo' => 'El rey Lear',
+                'páginas' => 300,
+                'sinopsis' => 'El rei Lear decideix repartir el seu regne entre les tres filles en funció de qui l\'estimi més. La seva filla petita, Cordèlia, s\'hi nega i és desheredada. La tragèdia que s\'encadena explora la ingratitud, la bogeria i la ruïna d\'un home poderós.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/elReyLear.avif',
+            ],
+            [
+                'titulo' => 'Mirall Trencat',
+                'páginas' => 416,
+                'sinopsis' => 'La història de la família Valldaura i la seva criada Teresa Goday, des de finals del segle XIX fins als anys 60. Una novel·la sobre el declivi d\'una família burgesa catalana a través de dues guerres, narrada amb la prosa poètica característica de Rodoreda.',
+                'idioma_id' => 1,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/mirallTrencat.avif',
+            ],
+            [
+                'titulo' => 'Les Llums de Setembre',
+                'páginas' => 272,
+                'sinopsis' => 'Un misteriós fabricant de joguines que viu reclòs en una mansió poblada per éssers mecànics i ombres del passat. Un enigma al voltant d\'estranyes llums que brillen entre la boira que envolta l\'illot del far. Tercer volum de la Trilogia de la Boira.',
+                'idioma_id' => 1,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/lesLlumsDeSetembre.avif',
+            ],
+            [
+                'titulo' => 'Felices',
+                'páginas' => 256,
+                'sinopsis' => 'Elsa Punset explora la neurociència de la felicitat i proposa eines pràctiques per construir una vida plena. Un manual emocional i científic sobre el benestar, les relacions i la gestió de les emocions.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/felices.avif',
+            ],
+            [
+                'titulo' => 'Los siete maridos de Evelyn Hugo',
+                'páginas' => 480,
+                'sinopsis' => 'L\'Evelyn Hugo, llegenda de Hollywood, decideix finalment explicar la veritat de la seva vida a una periodista desconeguda, la Monique Grant. Una història d\'ambició, amistat inesperada i un gran amor prohibit, que s\'estén des dels anys 50 fins als 80.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/losSleteMaridosDeEvelynHugo.avif',
+            ],
+            [
+                'titulo' => 'La Emperatriz del Mal',
+                'páginas' => 288,
+                'sinopsis' => 'La història de la bruixa malvada de Blancanieves des del seu propi punt de vista. Com es va convertir en la persona que és? Quins secrets amaga el mirall màgic? Una exploració fosca i empàtica de la seva vida, part de la sèrie de villans de Disney.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/laEmperatrizDelMal.avif',
+            ],
+            [
+                'titulo' => 'La veritat sobre el cas Harry Quebert',
+                'páginas' => 688,
+                'sinopsis' => 'El jove escriptor Marcus Goldman, bloquejat, s\'instal·la a la casa del seu mentor Harry Quebert a New Hampshire. Quan troben el cadàver d\'una jove als jardins de la casa, Harry és arrestat i Marcus investiga la veritat d\'un crim de trenta anys enrere.',
+                'idioma_id' => 1,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/laVeritatSobreElCasHarryQuebert.avif',
+            ],
+            [
+                'titulo' => 'Nocturna',
+                'páginas' => 560,
+                'sinopsis' => 'Una estirp maleïda es propaga pel món, i el teu tens alguna cosa sota la pell que els torna bojos. Desitjaràs que només sigui un conte...
+                    Un Boeing 777 aterra en l\'aeroport John F. Kennedy de Nova York provinent de Berlín, i quan es dirigeix a la porta perquè els passatgers comencin a desembarcar, 
+                    de sobte s\'enfosqueix. La torre de control perd contacte amb el pilot i tota l\'activitat elèctrica de l\'aparell es talla. No s\'escolten mòbils, ni BlackBerries, 
+                    ni la ràdio, res. Les cortines de les finestretes estan baixades i no es veu a ningú dins. Es reuneix un equip d\'emergències i tots observen a l\'avió silenciós ara 
+                    banyat per les llums de l\'aeroport, en complet silenci. Sembla una gegantesca làpida blanca que brilla contra el fosc cel de la nit. Llavors una bretxa negra apareix 
+                    en el fuselatge: és una porta que s\'obre des de dins amb una lentitud glacial… Sempre han estat aquí. Vampirs. Niant i alimentant-se. En secret i foscor. A l\'espera. 
+                    Ara ha arribat el seu moment. En una setmana, Manhattan haurà desaparegut. En tres mesos, tot el país. En sis mesos, el món sencer.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/laVeritatSobreElCasHarryQuebert.avif',
+            ],
+            [
+                'titulo' => 'Momo',
+                'páginas' => 320,
+                'sinopsis' => 'La Momo és una nena que viu sola en les ruïnes d\'un amfiteatre amb un do especial: sap escoltar com ningú. Però l\'arribada dels homes grisos, que roben el temps a la gent prometent-los guardar-lo, ho canviarà tot. Un clàssic sobre el valor del temps i l\'amistat.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/momo.avif',
+            ],
+            [
+                'titulo' => 'Retorno de las Estrellas',
+                'páginas' => 320,
+                'sinopsis' => 'L\'astronauta Hall Bregg torna a la Terra després de deu anys en una galàxia llunyana, però a causa de la dilatació relativista del temps, a la Terra n\'han passat 127. Es troba davant d\'una societat completament irreconeixible i ha de reapendre a viure-hi.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/retornoDeLasEstrellas.avif',
+            ],
+            [
+                'titulo' => 'Los Mundos de Chrestomanci',
+                'páginas' => 480,
+                'sinopsis' => 'Dos novel·les en un volum. A «Los Magos de Caprona», dues famílies rivals de màgia han de cooperar quan els seus encanteris comencen a fallar. A «Semana Bruja», a un internat apareix una nota: «en aquesta classe hi ha un bruixot». Part de la sèrie Chrestomanci.',
+                'idioma_id' => 2,
+                'leido' => 'No',
+                'puntuación' => null,
+                'portada' => '../public/losMundosDeChrestomanci.avif',
+            ],
+        ];
+
+        // Insertar los libros en la base de datos
+        foreach ($llibres as $llibre) {
+            DB::table('llibres')->insert($llibre);
+        }
+
+        // Insertar datos en la tabla autor - libro
+        DB::table('autor_llibre')->insert([
+            ['autor_id' => $autorsMap['Sandra Sabatés'],    'llibre_id' => 1],  // No me cuentes cuentos
+            ['autor_id' => $autorsMap['Judit Crehuet'],     'llibre_id' => 1],  // No me cuentes cuentos
+            ['autor_id' => $autorsMap['Leticia Dolera'],    'llibre_id' => 2],  // Morder la manzana
+            ['autor_id' => $autorsMap['Raquel Riba Rossy'], 'llibre_id' => 2],  // Morder la manzana
+            ['autor_id' => $autorsMap['Carmen Laforet'],    'llibre_id' => 3],  // Nada
+            ['autor_id' => $autorsMap['Claudio Stassi'],    'llibre_id' => 3],  // Nada
+            ['autor_id' => $autorsMap['Varios Autores'],    'llibre_id' => 4],  // Voces que cuentan
+            ['autor_id' => $autorsMap['Disney Studio'],     'llibre_id' => 5],  // Pesadilla antes de Navidad
+            ['autor_id' => $autorsMap['Alfonso Casas'],     'llibre_id' => 6],  // El final de todos los agostos
+            ['autor_id' => $autorsMap['Daniella Martí'],    'llibre_id' => 7],  // Quiero pensar que no es demasiado tarde
+            ['autor_id' => $autorsMap['Julie Maroh'],       'llibre_id' => 8],  // El azul es un color cálido
+            ['autor_id' => $autorsMap['Marina Velasco'],    'llibre_id' => 9],  // Que no se olvide
+            ['autor_id' => $autorsMap['Ana Oncina'],        'llibre_id' => 10], // Los f*cking 30
+            ['autor_id' => $autorsMap['Paloma Alma'],       'llibre_id' => 11], // Cyclo
+            ['autor_id' => $autorsMap['R.J. Palacio'],      'llibre_id' => 12], // Wonder
+            ['autor_id' => $autorsMap['Alfonso Casas'],     'llibre_id' => 13], // Monstruosamente
+            ['autor_id' => $autorsMap['Guillem Clua'],      'llibre_id' => 14], // Smiley
+            ['autor_id' => $autorsMap['Mónica Gutiérrez'],  'llibre_id' => 15], // Club de lectura para corazones despistados
+            ['autor_id' => $autorsMap['Raquel Riba Rossy'], 'llibre_id' => 16], // Lola Vendetta
+            ['autor_id' => $autorsMap['Shea Ernshaw'],      'llibre_id' => 17], // Larga vida a la reina de Halloween
+            ['autor_id' => $autorsMap['Eiko Kadono'],       'llibre_id' => 18], // Nicky, la aprendiz de bruja
+            ['autor_id' => $autorsMap['Ana Oncina'],        'llibre_id' => 19], // Just Friends (Integral)
+            ['autor_id' => $autorsMap['Carlos Ruiz Zafón'], 'llibre_id' => 20], // El Palau de la Mitjanit
+            ['autor_id' => $autorsMap['William Shakespeare'], 'llibre_id' => 21], // El rey Lear
+            ['autor_id' => $autorsMap['Mercè Rodoreda'],    'llibre_id' => 22], // Mirall Trencat
+            ['autor_id' => $autorsMap['Carlos Ruiz Zafón'], 'llibre_id' => 23], // Les Llums de Setembre
+            ['autor_id' => $autorsMap['Elsa Punset'],       'llibre_id' => 24], // Felices
+            ['autor_id' => $autorsMap['Taylor Jenkins Reid'], 'llibre_id' => 25], // Los siete maridos de Evelyn Hugo
+            ['autor_id' => $autorsMap['Serena Valentino'],  'llibre_id' => 26], // La Emperatriz del Mal
+            ['autor_id' => $autorsMap['Joël Dicker'],       'llibre_id' => 27], // La veritat sobre el cas Harry Quebert
+            ['autor_id' => $autorsMap['Guillermo Del Toro'], 'llibre_id' => 28], // Nocturna
+            ['autor_id' => $autorsMap['Chuck Hogan'],       'llibre_id' => 28], // Nocturna (coautor)
+            ['autor_id' => $autorsMap['Michael Ende'],      'llibre_id' => 29], // Momo
+            ['autor_id' => $autorsMap['Stanisław Lem'],     'llibre_id' => 30], // Retorno de las Estrellas
+            ['autor_id' => $autorsMap['Diana Wynne Jones'], 'llibre_id' => 31], // Los Mundos de Chrestomanci
+        ]);
+
+        // Insertar datos en la tabla categoria - libro
+        DB::table('categoria_llibre')->insert([
+            // 1. No me cuentes cuentos
+            ['categoria_id' => $categoriasMap['Assaig General'], 'llibre_id' => 1],
+            ['categoria_id' => $categoriasMap['Societat'],       'llibre_id' => 1],
+
+            // 2. Morder la manzana
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 2],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 2],
+            ['categoria_id' => $categoriasMap['Assaig General'], 'llibre_id' => 2],
+
+            // 3. Nada
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 3],
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 3],
+
+            // 4. Voces que cuentan
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 4],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 4],
+
+            // 5. Pesadilla antes de Navidad
+            ['categoria_id' => $categoriasMap['Cinema'],         'llibre_id' => 5],
+            ['categoria_id' => $categoriasMap['Art'],            'llibre_id' => 5],
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 5],
+
+            // 6. El final de todos los agostos
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 6],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 6],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 6],
+
+            // 7. Quiero pensar que no es demasiado tarde
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 7],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 7],
+
+            // 8. El azul es un color cálido
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 8],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 8],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 8],
+
+            // 9. Que no se olvide
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 9],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 9],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 9],
+
+            // 10. Los f*cking 30
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 10],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 10],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 10],
+
+            // 11. Cyclo
+            ['categoria_id' => $categoriasMap['No ficció'],      'llibre_id' => 11],
+            ['categoria_id' => $categoriasMap['Salut i Benestar'], 'llibre_id' => 11],
+
+            // 12. Wonder
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 12],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 12],
+
+            // 13. Monstruosamente
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 13],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 13],
+
+            // 14. Smiley
+            ['categoria_id' => $categoriasMap['Teatre'],         'llibre_id' => 14],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 14],
+
+            // 15. Club de lectura para corazones despistados
+            ['categoria_id' => $categoriasMap['Novel·la Romàntica'], 'llibre_id' => 15],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 15],
+
+            // 16. Lola Vendetta
+            ['categoria_id' => $categoriasMap['Còmic'],          'llibre_id' => 16],
+            ['categoria_id' => $categoriasMap['Novel·la Gràfica'], 'llibre_id' => 16],
+
+            // 17. Larga vida a la reina de Halloween
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 17],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 17],
+
+            // 18. Nicky, la aprendiz de bruja
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 18],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 18],
+
+            // 19. Just Friends (Integral)
+            ['categoria_id' => $categoriasMap['Manga'],          'llibre_id' => 19],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 19],
+
+            // 20. El Palau de la Mitjanit
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 20],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 20],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 20],
+
+            // 21. El rey Lear
+            ['categoria_id' => $categoriasMap['Teatre'],         'llibre_id' => 21],
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 21],
+
+            // 22. Mirall Trencat
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 22],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 22],
+            ['categoria_id' => $categoriasMap['Novel·la Històrica'], 'llibre_id' => 22],
+
+            // 23. Les Llums de Setembre
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 23],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 23],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 23],
+
+            // 24. Felices
+            ['categoria_id' => $categoriasMap['Assaig General'], 'llibre_id' => 24],
+            ['categoria_id' => $categoriasMap['Psicologia'],     'llibre_id' => 24],
+            ['categoria_id' => $categoriasMap['Filosofia'],      'llibre_id' => 24],
+
+            // 25. Los siete maridos de Evelyn Hugo
+            ['categoria_id' => $categoriasMap['Novel·la Romàntica'], 'llibre_id' => 25],
+            ['categoria_id' => $categoriasMap['Novel·la Històrica'], 'llibre_id' => 25],
+            ['categoria_id' => $categoriasMap['LGTBIQ+'],        'llibre_id' => 25],
+
+            // 26. La Emperatriz del Mal
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 26],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 26],
+
+            // 27. La veritat sobre el cas Harry Quebert
+            ['categoria_id' => $categoriasMap['Thriller'],       'llibre_id' => 27],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 27],
+            ['categoria_id' => $categoriasMap['Novel·la Policíaca'], 'llibre_id' => 27],
+
+            // 28. Nocturna
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 28],
+            ['categoria_id' => $categoriasMap['Thriller'],       'llibre_id' => 28],
+            ['categoria_id' => $categoriasMap['Novel·la Negra'], 'llibre_id' => 28],
+
+            // 29. Momo
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 29],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 29],
+            ['categoria_id' => $categoriasMap['Novel·la Clàssica'], 'llibre_id' => 29],
+
+            // 30. Retorno de las Estrellas
+            ['categoria_id' => $categoriasMap['Ciència-ficció'], 'llibre_id' => 30],
+            ['categoria_id' => $categoriasMap['Narrativa General'], 'llibre_id' => 30],
+
+            // 31. Los Mundos de Chrestomanci
+            ['categoria_id' => $categoriasMap['Fantasia'],       'llibre_id' => 31],
+            ['categoria_id' => $categoriasMap['Infantil i Juvenil'], 'llibre_id' => 31],
+        ]);
+    }
+}
