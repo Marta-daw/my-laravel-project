@@ -16,7 +16,7 @@ class LlibreController extends Controller
      */
     public function index()
     {
-        return Llibre::all()->get();
+        return Llibre::all();
     }
 
     /**

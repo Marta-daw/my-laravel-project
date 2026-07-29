@@ -4,4 +4,4 @@ const api = axios.create({
     baseURL: 'https://my-laravel-project.ddev.site'
 });
 
-export default api;
+export { api };
