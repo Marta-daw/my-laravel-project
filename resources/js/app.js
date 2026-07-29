@@ -6,8 +6,13 @@ import '@quasar/extras/material-icons/material-icons.css';
 
 import App from './App.vue';
 import router from './router/Index.js';
+import {api} from './boot/axios.js';
 
-createApp(App)
+const app = createApp(App);
+
+app.config.globalProperties.$api = api;
+
+app
     .use(Quasar, { plugins: {} })
     .use(createPinia())
     .use(router)
