@@ -13,7 +13,7 @@ class AutorController extends Controller
      */
     public function index()
     {
-        return Autor::all()->get();
+        return Autor::all();
     }
 
     /**

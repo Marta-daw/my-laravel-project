@@ -13,7 +13,7 @@ class IdiomaController extends Controller
      */
     public function index()
     {
-        return Idioma::all()->get();
+        return Idioma::all();
     }
 
     /**
