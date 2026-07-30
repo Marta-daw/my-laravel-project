@@ -14,7 +14,6 @@
                     <strong>{{ libro.titulo }}</strong>
                     <p>{{ libro.páginas }} pàgines</p>
                     <p>{{ libro.sinopsis }}</p>
-                    <p>{{ libro.idioma_id }} idioma id</p>
                     <p>idioma: {{ idiomas.find(idioma => idioma.id === libro.idioma_id)?.idioma }}</p>
                     <p>leido? {{ libro.leido}}</p>
                     <p>Puntuación: {{ libro.puntuación }}</p>
