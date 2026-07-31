@@ -25,6 +25,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { getCategoria } from '@/services/api.js'
 import { api } from '@/boot/axios.js'
 
 const categorias = ref([])
@@ -33,7 +34,7 @@ const carregant = ref(true)
 
 onMounted(async () => {
   try {
-    const response = await api.get('/api/categorias')
+    const response = await getCategoria()
     categorias.value = response.data
   } catch (err) {
     error.value = err.message

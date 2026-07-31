@@ -16,9 +16,19 @@ class LlibreController extends Controller
      */
     public function index()
     {
-        return Llibre::all();
+        //return Llibre::all();
+
+        $llibres = Llibre::with('autors', 'categorias', 'idioma')->get();
+
+        return response()->json($llibres);
     }
 
+    public function autors($id)
+    {
+        $llibre = Llibre::findOrFail($id);
+
+        return response()->json($llibre->autors);
+    }
     /**
      * Store a newly created resource in storage.
      */

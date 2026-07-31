@@ -42,3 +42,6 @@ Route::get('/llibres/{id}', [LlibreController::class, 'show']);
 Route::post('/llibres', [LlibreController::class, 'store']);
 Route::put('/llibres/{id}', [LlibreController::class, 'update']);
 Route::delete('/llibres/{id}', [LlibreController::class, 'destroy']);
+
+// Rutes públiques de la taula pivot autor_llibre
+Route::get('/llibres/{id}/autors', [LlibreController::class, 'autors']);

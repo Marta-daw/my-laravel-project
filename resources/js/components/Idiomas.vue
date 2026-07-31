@@ -18,6 +18,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { getIdioma } from '@/services/api.js'
 import { api } from '@/boot/axios.js'
 
 const idiomas = ref([])
@@ -26,7 +27,7 @@ const carregant = ref(true)
 
 onMounted(async () => {
     try {
-        const response = await api.get('/api/idiomas')
+        const response = await getIdioma()
         idiomas.value = response.data
     } catch (err) {
         error.value = err.message

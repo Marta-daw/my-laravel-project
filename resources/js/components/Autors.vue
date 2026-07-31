@@ -25,6 +25,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { getAutor } from '@/services/api.js'
 import { api } from '@/boot/axios.js'
 
 const autors = ref([])
@@ -33,7 +34,7 @@ const carregant = ref(true)
 
 onMounted(async () => {
   try {
-    const response = await api.get('/api/autors')
+    const response = await getAutor()
     autors.value = response.data
   } catch (err) {
     error.value = err.message
