@@ -36,7 +36,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getAutorsDelLlibre } from '@/services/api.js'
+import { getLlibre, getIdioma, getCategoria } from '@/services/api.js'
 import { api } from '@/boot/axios.js'
 
 const libros = ref([])
@@ -47,10 +47,10 @@ const carregant = ref(true)
 
 onMounted(async () => {
     try {
-        const response = await api.get('/api/llibres')
+        const response = await getLlibre()
         libros.value = response.data
 
-        const idiomaResponse = await api.get('/api/idiomas')
+        const idiomaResponse = await getIdioma()
         idiomas.value = idiomaResponse.data
     } catch (err) {
         error.value = err.message
