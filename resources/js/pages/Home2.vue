@@ -1,6 +1,6 @@
 <template>
     <q-page class="flex column">
-        <q-card flat class="col-12" style="display:block">
+        <q-card flat class="col-12 bg-fons-personalitzat" style="display:block">
             <div class="row col-12">
                 <q-card-section class="col-2">
                     <div class="item-center">
