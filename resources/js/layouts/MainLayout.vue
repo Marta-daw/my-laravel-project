@@ -8,7 +8,7 @@
 
         <q-toolbar-title>[Codi de Butxaca]</q-toolbar-title>
 
-        <q-btn dense flat round icon="account_circle" @click="leftDrawerOpen = !leftDrawerOpen" class="q-mr-sm" />
+        <q-btn dense flat round icon="account_circle" class="q-mr-sm" />
       </q-toolbar>
 
       <q-tabs
