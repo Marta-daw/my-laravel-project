@@ -57,7 +57,7 @@ class LlibreController extends Controller
     public function show(string $id)
     {
         //Buscar llibre o llancem un error 404 si no existeix
-        $llibre = llibre::findOrFail($id);
+        $llibre = Llibre::findOrFail($id);
 
         $idiomaIds = $llibre->idioma->pluck('id');
     }
@@ -72,7 +72,7 @@ class LlibreController extends Controller
             'páginas' => 'required|integer|min:1',
             'sinopsis' => 'nullable|string',
             'idioma_id' => 'required|exists:idiomas,id',
-            'leido' => 'required|in:Sí,No,En progreso',
+            'leido' => 'required|in:Sí,No,En proceso',
             'puntuación' => 'nullable|integer|between:0,5',
             'portada' => 'nullable|string',
             'autor_id' => 'required|exists:autors,id',
@@ -95,4 +95,25 @@ class LlibreController extends Controller
         return redirect()->back()->with('success', 'Llibre eliminat correctament');
     }
     
+    public function contarLlibres()
+    {
+        $totalLlibres = Llibre::count();
+
+        return response()->json(['total' => $totalLlibres]);
+    }
+
+    public function estadisticaLecturaAcabadaONo()
+    {
+        $llibresLlegits = Llibre::where('leido', 'Sí')->count();
+
+        $llibresNoLlegits = Llibre::where('leido', 'No')->count();
+
+        $llibresEnProceso = Llibre::where('leido', 'En proceso')->count();
+
+        return response()->json([
+            'llegits' => $llibresLlegits,
+            'noLlegits' => $llibresNoLlegits,
+            'enProceso' => $llibresEnProceso
+        ]);
+    }
 }

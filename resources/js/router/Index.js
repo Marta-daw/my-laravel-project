@@ -18,7 +18,7 @@ const routes = [
     component: ProjectLayout,
     children: [
       { path: '', component: DasboardBiblio },
-      { path: 'principal', component: () => import('../pages/DasboardBiblio.vue') },
+      { path: 'Principal', component: () => import('../pages/DasboardBiblio.vue') },
     ],
   },
 ];

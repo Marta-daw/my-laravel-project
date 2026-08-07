@@ -19,3 +19,11 @@ export function getCategoria() {
 export function getAutor() {
     return api.get('/api/autors');
 }
+
+export function getCountLlibres() {
+    return api.get('/api/llibres/count');
+}
+
+export function getLlibresLlegits() {
+    return api.get('/api/llibres/lectures');
+}

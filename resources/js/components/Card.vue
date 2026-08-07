@@ -11,9 +11,9 @@
             <q-card-section class="col-grow">
                 <p> {{ item.content }} </p>
             </q-card-section>
-            <q-card-action align="right" class="q-pb-sm q-pr-sm">
+            <q-card-actions align="right" class="q-pb-sm q-pr-sm">
                 <q-btn label="Accedir" color="primary" class="item-end" to="/biblioteca/Principal"/>
-            </q-card-action>
+            </q-card-actions>
         </div>
     </q-card>
 
