@@ -19,7 +19,7 @@
       >
         <q-route-tab name="home" label="Home" to="/" />
         <q-route-tab name="test" label="Test Connexió" to="/Home2.vue" />
-        <q-route-tab name="about" label="About" to="/about" />
+        <q-route-tab name="about" label="About me" to="/about" />
         <q-route-tab name="contact" label="Contact" to="/contact" />
       </q-tabs>
     </q-header>
