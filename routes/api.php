@@ -38,6 +38,8 @@ Route::delete('/idiomas/{id}', [IdiomaController::class, 'destroy']);
 
 // Rutes públiques per a la gestió de llibres
 Route::get('/llibres', [LlibreController::class, 'index']);
+Route::get('/llibres/count', [LlibreController::class, 'contarLlibres']);
+Route::get('/llibres/lectures', [LlibreController::class, 'estadisticaLecturaAcabadaONo']);
 Route::get('/llibres/{id}', [LlibreController::class, 'show']);
 Route::post('/llibres', [LlibreController::class, 'store']);
 Route::put('/llibres/{id}', [LlibreController::class, 'update']);

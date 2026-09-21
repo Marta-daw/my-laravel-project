@@ -7,3 +7,17 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Títols - Lora */
+body h1 { font-family: 'Lora', serif; font-weight: 700; font-size: 2.5rem; }   /* 40px - portada, títol principal */
+body h2 { font-family: 'Lora', serif; font-weight: 600; font-size: 2rem; }     /* 32px - títols de secció */
+body h3 { font-family: 'Lora', serif; font-weight: 600; font-size: 1.5rem; }   /* 24px - subtítols */
+
+/* Cos de text - Open Sans */
+body, p { font-family: 'Open Sans', sans-serif; font-weight: 400; font-size: 1rem; }      /* 16px - text normal */
+.text-small { font-family: 'Open Sans', sans-serif; font-weight: 400; font-size: 0.875rem; }  /* 14px - notes, peus de foto */
+.text-bold { font-family: 'Open Sans', sans-serif; font-weight: 600; }                       /* per destacar dins d'un paràgraf */
+
+.bg-fons-personalitzat {
+    background-color: var(--q-color-light) !important; /* Color de fons personalitzat */
+}

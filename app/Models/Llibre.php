@@ -13,7 +13,7 @@ class Llibre extends Model
         'páginas' => 'required|integer|min:0',
         'sinopsis' => 'nullable|string',
         'idioma_id' => 'required|exists:idiomas,id',
-        'leido' => 'required|enum:Sí,No,En progreso|default:No',
+        'leido' => 'required|enum:Sí,No,En proceso|default:No',
         'puntuación' => 'nullable|integer|between:0,5',
         'portada' => 'nullable|string',
     ];
