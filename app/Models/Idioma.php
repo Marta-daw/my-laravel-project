@@ -9,7 +9,7 @@ class Idioma extends Model
     protected $table = 'idiomas';
 
     protected $fillable = [
-        'idioma' => 'required|string|max:255',
+        'idioma',
     ];
 
     //Un idioma puede tener muchos libros

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreAutorRequest;
 
 use App\Models\Autor;
 
@@ -19,13 +20,9 @@ class AutorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAutorRequest $request)
     {
-        $validate = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido_1' => 'required|string|max:255',
-            'apellido_2' => 'nullable|string|max:255',
-        ]);
+        $validate = $request->validated();
 
         Autor::create($validate);
 
@@ -46,19 +43,15 @@ class AutorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Autor $autor)
+    public function update(StoreAutorRequest $request, Autor $autor)
     {
-        $validate = $request->validate([
-            $autor->id => 'required|exists:autors,id',
-            'nombre' => 'required|string|max:255',
-            'apellido_1' => 'required|string|max:255',
-            'apellido_2' => 'nullable|string|max:255',
-        ]);
+        $validate = $request->validated();
         
-        $autor = Autor::findOrFail($autor->id);
+        //$autor = Autor::findOrFail($autor->id);
         $autor->update($validate);
 
-        return redirect()->back()->with('success', 'Autor actualitzat correctament');
+        //return redirect()->back()->with('success', 'Autor actualitzat correctament');
+        return response()->json($autor->fresh(), 200);
     }
 
     /**

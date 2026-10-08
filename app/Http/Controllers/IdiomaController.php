@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreIdiomaRequest;
 
 use App\Models\Idioma;
 
@@ -19,11 +20,9 @@ class IdiomaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreIdiomaRequest $request)
     {
-        $validate = $request->validate([
-            'idioma' => 'required|string|max:255',
-        ]);
+        $validate = $request->validated();
 
         Idioma::create($validate);
 
@@ -43,17 +42,15 @@ class IdiomaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Idioma $idioma)
+    public function update(StoreIdiomaRequest $request, Idioma $idioma)
     {
-        $validate = $request->validate([
-            $idioma->id => 'required|exists:idiomas,id',
-            'idioma' => 'required|string|max:255',
-        ]);
+        $validate = $request->validated();
 
-        $idioma= Idioma::findOrFail($idioma->id);
+        //$idioma= Idioma::findOrFail($idioma->id);
         $idioma->update($validate);
 
-        return redirect()->back()->with('success', 'Idioma actualitzat correctament');
+        //return redirect()->back()->with('success', 'Idioma actualitzat correctament');
+        return response()->json($idioma->fresh(), 200);
     }
 
     /**

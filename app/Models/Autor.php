@@ -9,9 +9,9 @@ class Autor extends Model
     protected $table = 'autors';
 
     protected $fillable = [
-        'nombre' => 'required|string|max:255',
-        'apellido_1' => 'required|string|max:255',
-        'apellido_2' => 'nullable|string|max:255',
+        'nombre',
+        'apellido_1',
+        'apellido_2',
     ];
 
     //Un autor puede tener muchos libros
