@@ -9,7 +9,7 @@ class Categoria extends Model
     protected $table = 'categorias';
 
     protected $fillable = [
-        'nombre' => 'required|string|max:255',
+        'nombre',
     ];
 
     //Una categoria puede tener muchos libros

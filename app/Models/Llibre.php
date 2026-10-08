@@ -9,13 +9,13 @@ class Llibre extends Model
     protected $table = 'llibres';
 
     protected $fillable = [
-        'titulo' => 'required|string|max:255',
-        'páginas' => 'required|integer|min:0',
-        'sinopsis' => 'nullable|string',
-        'idioma_id' => 'required|exists:idiomas,id',
-        'leido' => 'required|enum:Sí,No,En proceso|default:No',
-        'puntuación' => 'nullable|integer|between:0,5',
-        'portada' => 'nullable|string',
+        'titulo',
+        'páginas',
+        'sinopsis',
+        'idioma_id',
+        'leido',
+        'puntuación',
+        'portada',
     ];
 
     //Un libro tiene un idioma

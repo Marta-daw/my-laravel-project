@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoriaRequest;
 
 use App\Models\Categoria;
 
@@ -19,11 +20,9 @@ class CategoriaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoriaRequest $request)
     {
-        $validate = $request->validate([
-            'nombre' => 'required|string|max:255',
-        ]);
+        $validate = $request->validated();
 
         Categoria::create($validate);
 
@@ -43,18 +42,16 @@ class CategoriaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(StoreCategoriaRequest $request, Categoria $categoria)
     {
-        $validate = $request->validate([
-            $categoria->id => 'required|exists:categorias,id',
-            'nombre' => 'required|string|max:255',
-        ]);
+        $validate = $request->validated();
 
-        $categoria = Categoria::findOrFail($categoria->id);
+        //$categoria = Categoria::findOrFail($categoria->id);
 
         $categoria->update($validate);
 
-        return redirect()->back()->with('success', 'Categoria actualitzada correctament');
+        //return redirect()->back()->with('success', 'Categoria actualitzada correctament');
+        return response()->json($categoria->fresh(), 200);
     }
 
     /**
