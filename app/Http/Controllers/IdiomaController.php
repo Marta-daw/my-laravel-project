@@ -22,9 +22,7 @@ class IdiomaController extends Controller
      */
     public function store(StoreIdiomaRequest $request)
     {
-        $validate = $request->validated();
-
-        $idioma = Idioma::create($validate);
+        $idioma = Idioma::create($request->validated());
 
         return response()->json($idioma, 201);
     }
@@ -61,6 +59,7 @@ class IdiomaController extends Controller
         $idioma->delete();
 
         //return redirect()->back()->with('success', 'Idioma eliminat correctament');
-        return response()->json(null, 204);
+        //return response()->json(null, 204);
+        return response()->noContent();
     }
 }
