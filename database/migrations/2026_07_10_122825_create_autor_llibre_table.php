@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('autor_llibre', function (Blueprint $table) {
             //clave forana de autor
             $table->foreignId('autor_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->constrained('autors')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
 
             //clave forana de libro
             $table->foreignId('llibre_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->constrained('llibres')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->unique(['autor_id', 'llibre_id']); // Evita duplicats
         });
     }
 

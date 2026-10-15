@@ -101,9 +101,8 @@ class LlibreController extends Controller
 
             unset($validate['autor_id'], $validate['categoria_id']);
 
-            $llibre = Llibre::create($validate);
-
-            $llibre->autors()->sync($autorIds);
+            $llibre ->update($validate);
+            $llibre->autores()->sync($autorIds);
             $llibre->categorias()->sync($categoriaIds);
 
             return response()->json(
@@ -120,7 +119,8 @@ class LlibreController extends Controller
     {
         $llibre->delete();
 
-        return response()->json(null, 204);
+        //return response()->json(null, 204);
+        return response()->noContent();
     }
     
     public function contarLlibres()

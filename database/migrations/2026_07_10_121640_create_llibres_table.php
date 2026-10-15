@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('llibres', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->integer('paginas');
+            $table->integer('paginas')->min(1);
             $table->longText('sinopsis');
             $table->foreignId('idioma_id')->constrained();
             $table->enum('leido', ['si', 'no', 'en_proceso'])->default('no');
-            $table->tinyInteger('puntuacion')->nullable();
+            $table->unsignedTinyInteger('puntuacion')->nullable();
             $table->longText('portada')->nullable();
             $table->timestamps();
         });

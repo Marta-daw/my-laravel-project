@@ -22,9 +22,7 @@ class AutorController extends Controller
      */
     public function store(StoreAutorRequest $request)
     {
-        $validate = $request->validated();
-
-        $autor = Autor::create($validate);
+        $autor = Autor::create($request->validated());
 
         //return redirect()->back()->with('success', 'Autor creat correctament');
         return response()->json($autor, 201);
@@ -45,11 +43,9 @@ class AutorController extends Controller
      * Update the specified resource in storage.
      */
     public function update(StoreAutorRequest $request, Autor $autor)
-    {
-        $validate = $request->validated();
-        
+    {   
         //$autor = Autor::findOrFail($autor->id);
-        $autor->update($validate);
+        $autor->update($request->validated());
 
         //return redirect()->back()->with('success', 'Autor actualitzat correctament');
         return response()->json($autor->fresh(), 200);
@@ -63,6 +59,7 @@ class AutorController extends Controller
         $autor->delete();
 
         //return redirect()->back()->with('success', 'Autor eliminat correctament');
-        return response()->json(null, 204);
+        //return response()->json(null, 204);
+        return response()->noContent();
     }
 }

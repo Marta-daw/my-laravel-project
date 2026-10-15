@@ -17,13 +17,15 @@ return new class extends Migration
                 ->nullable() // Permet que el llibre es quedi sense categoria
                 ->constrained()
                 ->onDelete('set null') // Si s'esborra la categoria, posa aquest camp a NULL
-                ->onUpdate('cascade');
+                ->cascadeOnUpdate();
 
             //clave forana de libro
             $table->foreignId('llibre_id')
                 ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            
+            $table->unique(['categoria_id', 'llibre_id']); // Evita duplicats
         });
     }
 

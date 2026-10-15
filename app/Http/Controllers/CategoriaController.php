@@ -22,9 +22,7 @@ class CategoriaController extends Controller
      */
     public function store(StoreCategoriaRequest $request)
     {
-        $validate = $request->validated();
-
-        $categoria = Categoria::create($validate);
+        $categoria = Categoria::create($request->validated());
 
         return response()->json($categoria, 201);
     }
@@ -61,6 +59,7 @@ class CategoriaController extends Controller
     {
         $categoria->delete();
 
-        return response()->json(null, 204);
+        //return response()->json(null, 204);
+        return response()->noContent();
     }
 }
