@@ -17,7 +17,7 @@ export function getCategoria() {
 }
 
 export function getAutor() {
-    return api.get('/api/autors');
+    return api.get('/api/autores');
 }
 
 export function getCountLlibres() {

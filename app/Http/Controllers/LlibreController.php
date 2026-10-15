@@ -21,17 +21,36 @@ class LlibreController extends Controller
     {
         //return Llibre::all();
 
-        $llibres = Llibre::with('autors', 'categorias', 'idioma')->get();
+        $llibres = Llibre::with('autores', 'categorias', 'idioma')->get();
 
         return response()->json($llibres);
     }
 
-    public function autors($id)
+    /**
+     * Función para obtener los autores de un libro específico
+     * @param int $id El ID del libro
+     * @return \Illuminate\Http\JsonResponse La respuesta JSON con los autores del libro
+     */
+
+    public function autores($id)
     {
         $llibre = Llibre::findOrFail($id);
 
-        return response()->json($llibre->autors);
+        return response()->json($llibre->autores);
     }
+
+    /**
+     * Función para obtener las categorías de un libro específico
+     * @param int $id El ID del libro
+     * @return \Illuminate\Http\JsonResponse La respuesta JSON con las categorías del libro
+     */
+    public function categorias($id)
+    {
+        $llibre = Llibre::findOrFail($id);
+
+        return response()->json($llibre->categorias);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -47,11 +66,11 @@ class LlibreController extends Controller
 
             $llibre = Llibre::create($validate);
 
-            $llibre->autors()->sync($autorIds);
+            $llibre->autores()->sync($autorIds);
             $llibre->categorias()->sync($categoriaIds);
 
             return response()->json(
-                $llibre->load(['autors', 'categorias', 'idioma']),
+                $llibre->load(['autores', 'categorias', 'idioma']),
                 201
             );
         });
@@ -66,7 +85,7 @@ class LlibreController extends Controller
         //$llibre = Llibre::findOrFail($id);
 
         // Retornar el llibre amb les seves relacions
-        return response()->json($llibre->load(['autors', 'categorias', 'idioma']));
+        return response()->json($llibre->load(['autores', 'categorias', 'idioma']));
     }
 
     /**
@@ -88,8 +107,8 @@ class LlibreController extends Controller
             $llibre->categorias()->sync($categoriaIds);
 
             return response()->json(
-                $llibre->load(['autors', 'categorias', 'idioma']),
-                201
+                $llibre->load(['autores', 'categorias', 'idioma']),
+                200
             );
         });
     }
@@ -101,7 +120,7 @@ class LlibreController extends Controller
     {
         $llibre->delete();
 
-        return redirect()->back()->with('success', 'Llibre eliminat correctament');
+        return response()->json(null, 204);
     }
     
     public function contarLlibres()
@@ -113,15 +132,15 @@ class LlibreController extends Controller
 
     public function estadisticaLecturaAcabadaONo()
     {
-        $llibresLlegits = Llibre::where('leido', 'Sí')->count();
+        $llibresLlegits = Llibre::where('leido', 'si')->count();
 
-        $llibresNoLlegits = Llibre::where('leido', 'No')->count();
+        $llibresNoLlegits = Llibre::where('leido', 'no')->count();
 
-        $llibresEnProceso = Llibre::where('leido', 'En proceso')->count();
+        $llibresEnProceso = Llibre::where('leido', 'en_proceso')->count();
 
         return response()->json([
-            'llegits' => $llibresLlegits,
-            'noLlegits' => $llibresNoLlegits,
+            'leidos' => $llibresLlegits,
+            'noLeidos' => $llibresNoLlegits,
             'enProceso' => $llibresEnProceso
         ]);
     }

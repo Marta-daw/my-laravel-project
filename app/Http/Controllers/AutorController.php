@@ -24,9 +24,10 @@ class AutorController extends Controller
     {
         $validate = $request->validated();
 
-        Autor::create($validate);
+        $autor = Autor::create($validate);
 
-        return redirect()->back()->with('success', 'Autor creat correctament');
+        //return redirect()->back()->with('success', 'Autor creat correctament');
+        return response()->json($autor, 201);
     }
 
     /**
@@ -61,6 +62,7 @@ class AutorController extends Controller
     {
         $autor->delete();
 
-        return redirect()->back()->with('success', 'Autor eliminat correctament');
+        //return redirect()->back()->with('success', 'Autor eliminat correctament');
+        return response()->json(null, 204);
     }
 }

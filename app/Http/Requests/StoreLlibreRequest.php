@@ -23,11 +23,11 @@ class StoreLlibreRequest extends FormRequest
     {
         return [
             'titulo' => 'required|string|max:255',
-            'páginas' => 'required|integer|min:0',
+            'paginas' => 'required|integer|min:0',
             'sinopsis' => 'nullable|string',
             'idioma_id' => 'required|exists:idiomas,id',
-            'leido' => 'required|enum:Sí,No,En proceso|default:No',
-            'puntuación' => 'nullable|integer|between:0,5',
+            'leido' => 'required|enum:si, no, en_proceso|default:no',
+            'puntuacion' => 'nullable|integer|between:0,5',
             'portada' => 'nullable|string',
 
             'autor_id' => 'required|array',

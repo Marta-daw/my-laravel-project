@@ -12,11 +12,11 @@
             <li v-for="libro in libros" :key="libro.id">
                 <div class="border q-mb-md q-pa-md">
                     <strong>{{ libro.titulo }}</strong>
-                    <p>{{ libro.páginas }} pàgines</p>
+                    <p>{{ libro.paginas }} pàgines</p>
                     <p>{{ libro.sinopsis }}</p>
                     <p>idioma: {{ idiomas.find(idioma => idioma.id === libro.idioma_id)?.idioma }}</p>
                     <p>leido? {{ libro.leido}}</p>
-                    <p>Puntuación: {{ libro.puntuación }}</p>
+                    <p>Puntuación: {{ libro.puntuacion }}</p>
                     <p> Autor(s): 
                         <span v-for="(autor, index) in libro.autors" :key="autor.id">
                             {{ autor.nombre }} {{ autor.apellido_1 }} {{ autor.apellido_2 }}<span v-if="index < libro.autors.length - 1">, </span>
