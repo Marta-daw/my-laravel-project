@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('llibres', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->integer('páginas');
+            $table->integer('paginas');
             $table->longText('sinopsis');
             $table->foreignId('idioma_id')->constrained();
-            $table->enum('leido', ['Sí', 'No', 'En proceso'])->default('No');
-            $table->tinyInteger('puntuación')->nullable();
+            $table->enum('leido', ['si', 'no', 'en_proceso'])->default('no');
+            $table->tinyInteger('puntuacion')->nullable();
             $table->longText('portada')->nullable();
             $table->timestamps();
         });
 
         // Restricción de puntuación CHECK para un rango entre 0 y 5 (ambos incluidos)
-        DB::statement('ALTER TABLE llibres ADD CONSTRAINT check_puntuación CHECK (puntuación BETWEEN 0 AND 5)');
+        DB::statement('ALTER TABLE llibres ADD CONSTRAINT check_puntuacion CHECK (puntuacion BETWEEN 0 AND 5)');
     }
 
     /**

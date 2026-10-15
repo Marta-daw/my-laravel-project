@@ -10,11 +10,11 @@ class Llibre extends Model
 
     protected $fillable = [
         'titulo',
-        'páginas',
+        'paginas',
         'sinopsis',
         'idioma_id',
         'leido',
-        'puntuación',
+        'puntuacion',
         'portada',
     ];
 
@@ -31,7 +31,7 @@ class Llibre extends Model
     }
 
     //Un libro puede tener varios autores
-    public function autors()
+    public function autores()
     {
         return $this->belongsToMany(Autor::class, 'autor_llibre', 'llibre_id', 'autor_id');
     }

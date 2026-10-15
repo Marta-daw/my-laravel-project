@@ -24,9 +24,9 @@ class IdiomaController extends Controller
     {
         $validate = $request->validated();
 
-        Idioma::create($validate);
+        $idioma = Idioma::create($validate);
 
-        return redirect()->back()->with('success', 'Idioma creat correctament');
+        return response()->json($idioma, 201);
     }
 
     /**
@@ -60,6 +60,7 @@ class IdiomaController extends Controller
     {
         $idioma->delete();
 
-        return redirect()->back()->with('success', 'Idioma eliminat correctament');
+        //return redirect()->back()->with('success', 'Idioma eliminat correctament');
+        return response()->json(null, 204);
     }
 }

@@ -24,9 +24,9 @@ class CategoriaController extends Controller
     {
         $validate = $request->validated();
 
-        Categoria::create($validate);
+        $categoria = Categoria::create($validate);
 
-        return redirect()->back()->with('success', 'Categoria creat correctament');
+        return response()->json($categoria, 201);
     }
 
     /**
@@ -61,6 +61,6 @@ class CategoriaController extends Controller
     {
         $categoria->delete();
 
-        return redirect()->back()->with('success', 'Categoria eliminada correctament');
+        return response()->json(null, 204);
     }
 }
