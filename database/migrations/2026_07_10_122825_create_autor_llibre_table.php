@@ -12,19 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('autor_llibre', function (Blueprint $table) {
+            //clave forana de libro
+            $table->foreignId('llibre_id')
+                ->constrained('llibres')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            
             //clave forana de autor
             $table->foreignId('autor_id')
                 ->constrained('autors')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            //clave forana de libro
-            $table->foreignId('llibre_id')
-                ->constrained('llibres')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->unique(['autor_id', 'llibre_id']); // Evita duplicats
+            $table->unique(['llibre_id', 'autor_id']); // Evita duplicats
         });
     }
 

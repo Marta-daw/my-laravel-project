@@ -12,20 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categoria_llibre', function (Blueprint $table) {
-            //clave forana de categoria
-            $table->foreignId('categoria_id')
-                ->nullable() // Permet que el llibre es quedi sense categoria
-                ->constrained()
-                ->onDelete('set null') // Si s'esborra la categoria, posa aquest camp a NULL
-                ->cascadeOnUpdate();
-
             //clave forana de libro
             $table->foreignId('llibre_id')
-                ->constrained()
+                ->constrained('llibres')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             
-            $table->unique(['categoria_id', 'llibre_id']); // Evita duplicats
+            //clave forana de categoria
+            $table->foreignId('categoria_id')
+                ->nullable() // Permet que el llibre es quedi sense categoria
+                ->constrained('categorias')
+                ->nullOnDelete() // Si s'esborra la categoria, posa aquest camp a NULL
+                ->cascadeOnUpdate();
+
+            $table->unique(['llibre_id', 'categoria_id']); // Evita duplicats
         });
     }
 

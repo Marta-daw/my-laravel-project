@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->integer('paginas')->min(1);
             $table->longText('sinopsis');
-            $table->foreignId('idioma_id')->constrained();
+            $table->foreignId('idioma_id')->constrained('idiomas')->restrictOnDelete();
             $table->enum('leido', ['si', 'no', 'en_proceso'])->default('no');
             $table->unsignedTinyInteger('puntuacion')->nullable();
             $table->longText('portada')->nullable();
