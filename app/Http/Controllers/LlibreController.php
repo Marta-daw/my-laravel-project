@@ -20,8 +20,31 @@ class LlibreController extends Controller
     public function index()
     {
         //return Llibre::all();
+        // $llibres = Llibre::with('autores', 'categorias', 'idioma')->get();
+        // return response()->json($llibres);
 
-        $llibres = Llibre::with('autores', 'categorias', 'idioma')->get();
+        // Definir los campos a usar para ordenar.
+        $allowedSorts = ['titulo', 'created_at'];
+
+        // Comprobar que el valor de 'sort' es uno de los permitidos por defecto.
+        $sort = in_array($request->string('sort')->toString(), $allowedSorts, true)
+            ? $request->string('sort')->toString()
+            : 'titulo';
+
+        // Limitar el número de resultados por página a un máximo de 50
+        $perPage = min(
+            max($request->integer('per_page', 10), 1),
+            50
+        );
+        
+        // Construir consulta de los libros, donde el with() carga las relaciones indicadas,
+        // when() aplica el filtro solo si se cumplen unas condiciones, en este caso si se ha 
+        // enviado el parámetro 'search', con orderBy() ordenamos los resulktados por el campo 
+        // indicado y con paginate() limitamos el número de resultados por página.
+        $llibres = Llibre::with('autores', 'categorias', 'idioma')
+            ->when($request->filled('search'), fn ($query) => $query->where('titulo', 'like', '%' . $request->string('search')->toString() . '%'))
+            ->orderBy($sort)
+            ->paginate($perPage);
 
         return response()->json($llibres);
     }
