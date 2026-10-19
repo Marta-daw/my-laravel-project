@@ -19,12 +19,13 @@ return new class extends Migration
             $table->foreignId('idioma_id')->constrained('idiomas')->restrictOnDelete();
             $table->enum('leido', ['si', 'no', 'en_proceso'])->default('no');
             $table->unsignedTinyInteger('puntuacion')->nullable();
+            //$table->check('puntuacion BETWEEN 0 AND 5');
             $table->longText('portada')->nullable();
             $table->timestamps();
         });
 
         // Restricción de puntuación CHECK para un rango entre 0 y 5 (ambos incluidos)
-        DB::statement('ALTER TABLE llibres ADD CONSTRAINT check_puntuacion CHECK (puntuacion BETWEEN 0 AND 5)');
+        // DB::statement('ALTER TABLE llibres ADD CONSTRAINT check_puntuacion CHECK (puntuacion BETWEEN 0 AND 5)');
     }
 
     /**

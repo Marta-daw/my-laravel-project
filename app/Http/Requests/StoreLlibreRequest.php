@@ -27,7 +27,7 @@ class StoreLlibreRequest extends FormRequest
             'sinopsis' => 'string',
             'idioma_id' => 'required|exists:idiomas,id',
             'leido' => 'required|enum:si, no, en_proceso|default:no',
-            'puntuacion' => 'nullable|integer|between:0,5',
+            'puntuacion' => ['nullable', 'integer', 'between:0,5'],
             'portada' => 'nullable|string',
 
             'autor_id' => ['required', 'array'],

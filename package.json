@@ -4,7 +4,10 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "lint": "eslint resources/js --ext .js,.vue",
+		"format": "prettier --write resources/js resources/css",
+		"format:check": "prettier --check resources/js resources/css"
     },
     "devDependencies": {
         "@quasar/vite-plugin": "^1.12.0",

@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import CardBiblio from '@/components/Bilblioteca/CardBiblio.vue';
+import CardBiblio from '@/components/Biblioteca/CardBiblio.vue';
 </script>
 
 <style lang="scss" scoped>
