@@ -5,7 +5,7 @@ import 'quasar/src/css/index.sass';
 import '@quasar/extras/material-icons/material-icons.css';
 
 import App from './App.vue';
-import router from './router/Index.js';
+import router from './router/index.js';
 import {api} from './boot/axios.js';
 
 const app = createApp(App);

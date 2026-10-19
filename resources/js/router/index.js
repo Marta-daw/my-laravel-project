@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import MainLayout from '../layouts/MainLayout.vue';
 import ProjectLayout from '../layouts/ProjectLayout.vue';
 import Home from '../pages/Home.vue';
-import DasboardBiblio from '../pages/DasboardBiblio.vue';
+import DashboardBiblio from '../pages/DashboardBiblio.vue';
 
 const routes = [
   {
@@ -18,8 +18,8 @@ const routes = [
     path: '/biblioteca',
     component: ProjectLayout,
     children: [
-      { path: '', component: DasboardBiblio },
-      { path: 'Principal', component: () => import('../pages/DasboardBiblio.vue') },
+      { path: '', component: DashboardBiblio },
+      { path: 'Principal', component: DashboardBiblio },
     ],
   },
 ];
