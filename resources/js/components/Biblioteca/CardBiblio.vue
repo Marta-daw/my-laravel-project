@@ -1,5 +1,5 @@
 <template>
-    <span class="col-12 row">
+    <!-- <span class="col-12 row">
         <q-card class="my-card col-8 col-md-6 q-mr-md">
             <div class="row">
                 <q-card-section class="col-8 col-md-4">
@@ -20,11 +20,35 @@
                     </q-chips>
                 </q-card-section>
             </div>    
-        </q-card>
-        <q-card class="col-4 col-md-5">
+        </q-card> 
+    </span> -->
+
+    <span class="row q-col-gutter-md">
+        <div
+            v-for = "item in datosTarjeta"
+            :key="item.key"
+            class="col-12 col-sm-6 col-md-3"
+        >
+            <q-card 
+                class="my-card full-height"
+                :class="`bg-${item.color} text-white`"
+                :aria-label="`${item.label}: ${item.value}`"
+            >
+                <q-card-section class="row items-center no-wrap">
+                    <q-icon :name="item.icon" size="3rem" class="q-mr-md text-white"/>
+                    <div class="text-h6">{{ item.label }}</div>
+                    <div class="text-h4 q-mx-auto">{{ item.value }}</div>
+                </q-card-section>
+            </q-card>
+        </div> 
+    </span>
+
+    <span class="col-12 row q-mt-md">
+        <q-card class="col-12">
             <h3>Descripció</h3>
         </q-card>
     </span>
+
     <span class="col-12 row q-mt-md">
         <q-card class="my-card col-8 col-md-6 q-mr-md">
             <div class="row">
@@ -45,38 +69,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { getCountLlibres, getLlibresLlegits } from '@/services/api';
+import { onMounted, computed, ref } from 'vue';
+import { getResumLectures } from '@/services/api';
 
 const totalLlibres = ref(0);
 const llegits = ref(0);
 const noLlegits = ref(0);
 const enProceso = ref(0);
 
-async function fetchCount() {
-    const response = await getCountLlibres();
-    totalLlibres.value = response.data.total;
-}
+const error = ref(null);
+const carregant = ref(true);
 
-async function fetchLlibresLlegits() {
-    const response = await getLlibresLlegits();
-    llegits.value = response.data.llegits;
-}
+onMounted(async () => {
+    try {
+        const data = await getResumLectures();
+        totalLlibres.value = data.data.total;
+        llegits.value = data.data.leidos;
+        noLlegits.value = data.data.noLeidos;
+        enProceso.value = data.data.enProceso;
+    } catch (err) {
+        error.value = err.response?.data?.message ?? err.message;
+        console.error('Error en carregar les dades', error.value);
+    } finally {
+        carregant.value = false;
+    }
+});
 
-async function fetchLlibresNoLlegits() {
-    const response = await getLlibresLlegits();
-    noLlegits.value = response.data.noLlegits;
-}
-
-async function fetchLlibresEnProceso() {
-    const response = await getLlibresLlegits();
-    enProceso.value = response.data.enProceso;
-}
-
-fetchCount();
-fetchLlibresLlegits();
-fetchLlibresNoLlegits();
-fetchLlibresEnProceso();
+const datosTarjeta = computed(() => [
+    {key: 'total', label: 'Total de llibres', value: totalLlibres.value , icon: 'menu_book', color: 'primary'},
+    {key: 'llegits', label: 'Llibres llegits', value: llegits.value, icon: 'check_circle', color: 'positive'},
+    {key: 'noLlegits', label: 'Llibres no Llegits', value: noLlegits.value, icon: 'cancel', color: 'warning'},
+    {key: 'enProceso', label: 'En Proceso', value: enProceso.value, icon: 'schedule', color: 'info'},
+])
 </script>
 
 <style lang="scss" scoped>

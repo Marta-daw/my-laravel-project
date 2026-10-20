@@ -17,7 +17,7 @@ class LlibreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //return Llibre::all();
         // $llibres = Llibre::with('autores', 'categorias', 'idioma')->get();
@@ -145,13 +145,6 @@ class LlibreController extends Controller
         //return response()->json(null, 204);
         return response()->noContent();
     }
-    
-    public function contarLlibres()
-    {
-        $totalLlibres = Llibre::count();
-
-        return response()->json(['total' => $totalLlibres]);
-    }
 
     public function estadisticaLecturaAcabadaONo()
     {
@@ -162,6 +155,7 @@ class LlibreController extends Controller
         $llibresEnProceso = Llibre::where('leido', 'en_proceso')->count();
 
         return response()->json([
+            'total'=> Llibre::count(),
             'leidos' => $llibresLlegits,
             'noLeidos' => $llibresNoLlegits,
             'enProceso' => $llibresEnProceso
