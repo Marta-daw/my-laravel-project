@@ -17,7 +17,7 @@ class LlibreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //return Llibre::all();
         // $llibres = Llibre::with('autores', 'categorias', 'idioma')->get();
