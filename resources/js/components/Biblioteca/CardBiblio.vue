@@ -32,7 +32,7 @@
             <q-card>
                     <q-card-section class="text-h6"> Llibres per categories</q-card-section>
                     <q-card-section>
-                        <Bar :data="categoriesData" :options="chartOptions" />
+                        <Bar :data="categoriesData" :options="chartOptionsBar" />
                     </q-card-section>  
             </q-card>
         </div>
@@ -52,24 +52,24 @@ import { onMounted, computed, ref } from 'vue';
 import { getResumLectures } from '@/services/api';
 import { Bar, Doughnut } from 'vue-chartjs';
 import {
-    ArcElement,
-    BarElement,
-    CategoryScale,
-    Chart as ChartJS,
-    Legend,
-    LinearScale,
-    Title,
-    Tooltip,
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
 } from 'chart.js';
 
 ChartJS.register(
-    ArcElement,
-    BarElement,
-    CategoryScale,
-    Legend,
-    LinearScale,
-    Title,
-    Tooltip
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip
 );
 
 const totalLlibres = ref(0);
@@ -80,6 +80,8 @@ const enProceso = ref(0);
 const error = ref(null);
 const carregant = ref(true);
 
+const categorias = ref([]);
+
 onMounted(async () => {
     try {
         const data = await getResumLectures();
@@ -87,6 +89,9 @@ onMounted(async () => {
         llegits.value = data.data.leidos;
         noLlegits.value = data.data.noLeidos;
         enProceso.value = data.data.enProceso;
+
+        categorias.value = data.data.categorias ?? [];
+
     } catch (err) {
         error.value = err.response?.data?.message ?? err.message;
         console.error('Error en carregar les dades', error.value);
@@ -103,20 +108,55 @@ const datosTarjeta = computed(() => [
 ])
 
 // Dades pels gràfics
+const categoriesData = computed(() => ({
+  labels: categorias.value.map(c => c.nom),
+  datasets: [
+    {
+      label: 'Llibres per categoria',
+      data: categorias.value.map(c => c.llibres_count),
+      backgroundColor: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc949'],
+      borderRadius: 6
+    }
+  ]
+}));
 
+const lecturaData = computed(() => ({
+  labels: ['Llegits', 'No llegits', 'En procés'],
+  datasets: [
+    {
+      data: [llegits.value, noLlegits.value, enProceso.value],
+      backgroundColor: ['#21ba45', '#f2c037', '#3b82f6'],
+      hoverOffset: 4
+    }
+  ]
+}));
 
 // Opcions pròpies pel grafic de lecturaData
 const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-        legend: {
-            position: 'bottom',
-        },
-        title: {
-            display: false,
-        },
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: 'bottom',
     },
+    title: {
+      display: false,
+    },
+  },
+};
+
+const chartOptionsBar = {
+  responsive: true,
+  maintainAspectRatio: false,
+  indexAxis: 'y',
+  plugins: {
+    legend: {
+      position: 'bottom',
+    },
+    title: {
+      display: false,
+    },
+  },
 };
 </script>
 

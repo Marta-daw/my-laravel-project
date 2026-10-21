@@ -154,16 +154,18 @@ class LlibreController extends Controller
 
         $llibresEnProceso = Llibre::where('leido', 'en_proceso')->count();
 
+        $categorias = Categoria::withCount('llibres')->get()
+            ->map(fn ($categoria) => [
+                'nombre' => $categoria->nombre,
+                'total_llibres' => $categoria->llibres_count
+            ]);
+
         return response()->json([
             'total'=> Llibre::count(),
             'leidos' => $llibresLlegits,
             'noLeidos' => $llibresNoLlegits,
-            'enProceso' => $llibresEnProceso
+            'enProceso' => $llibresEnProceso,
+            'categorias' => $categorias
         ]);
-    }
-
-    public function estadisticaCategorias()
-    {
-        
     }
 }
