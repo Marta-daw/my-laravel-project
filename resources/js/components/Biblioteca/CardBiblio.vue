@@ -24,23 +24,30 @@
             <div class="text-h4 q-ma-sm">Descripció</div>
             <q-separator class="q-my-sm q-mx-sm bg-primary" />
             <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
+            <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
+            <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
+            <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
         </q-card>
     </span>
 
-    <span class="row q-col-gutter-sm q-mt-md">
+    <span class="row q-col-gutter-sm q-mt-md chart-container">
         <div class="col-12 col-md-7">
             <q-card>
-                    <q-card-section class="text-h6"> Llibres per categories</q-card-section>
-                    <q-card-section>
-                        <Bar :data="categoriesData" :options="chartOptionsBar" />
-                    </q-card-section>  
+              <q-card-section class="text-h6 q-mb-none">Llibres per categories</q-card-section>
+                <q-card-section class="flex-grow">
+                  <div class="bar-card">
+                    <Bar :data="categoriesData" :options="chartOptionsBar" />
+                  </div>
+              </q-card-section>  
             </q-card>
         </div>
         <div class="col-12 col-md-5">
             <q-card>
-                <q-card-section class="text-h6"> Estat de la lectura </q-card-section>
+                <q-card-section class="text-h6 q-mb-none"> Estat de la lectura </q-card-section>
                 <q-card-section>
+                  <div class="doughnut-card">
                     <Doughnut :data="lecturaData" :options="chartOptions" />
+                  </div>
                 </q-card-section>
             </q-card>
         </div>
@@ -109,11 +116,11 @@ const datosTarjeta = computed(() => [
 
 // Dades pels gràfics
 const categoriesData = computed(() => ({
-  labels: categorias.value.map(c => c.nom),
+  labels: categorias.value.map(c => c.nombre),
   datasets: [
     {
       label: 'Llibres per categoria',
-      data: categorias.value.map(c => c.llibres_count),
+      data: categorias.value.map(c => c.total_llibres),
       backgroundColor: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc949'],
       borderRadius: 6
     }
@@ -147,7 +154,7 @@ const chartOptions = {
 
 const chartOptionsBar = {
   responsive: true,
-  maintainAspectRatio: false,
+  maintainAspectRatio: true,
   indexAxis: 'y',
   plugins: {
     legend: {
@@ -161,4 +168,63 @@ const chartOptionsBar = {
 </script>
 
 <style lang="scss" scoped>
+.chart-container {
+  position: relative;
+  height: 550px; /* Ajusta la altura según tus necesidades */
+}
+
+.doughnut-card {
+  position: relative;
+  width: 100%;
+  height: 440px; /* Ajusta la altura según tus necesidades */
+}
+
+.bar-card {
+  height: 440px; /* Ajusta la altura según tus necesidades */
+}
+
+/* Pantalles petites: mòbils */
+@media (max-width: 599px) {  
+    .chart-container {
+        height: 350px;
+    }
+
+    .doughnut-card {
+        height: 240px;
+    }
+
+    .bar-card {
+        height: 240px;
+    }
+}
+
+/* Pantalles mitjanes: tablets i portàtils petits */
+@media (min-width: 600px) and (max-width: 1023px) {
+    .chart-container {
+        height: 410px;
+    }
+
+    .doughnut-card {
+        height: 300px;
+    }
+
+    .bar-card {
+        height: 300px;
+    }
+}
+
+/* Pantalles grans */
+@media (min-width: 1024px) {
+    .chart-container {
+        height: 470px;
+    }
+
+    .doughnut-card {
+        height: 360px;
+    }
+
+    .bar-card {
+        height: 360px;
+    }
+}
 </style>
