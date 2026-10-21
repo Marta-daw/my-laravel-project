@@ -7,6 +7,7 @@ import '@quasar/extras/material-icons/material-icons.css';
 import App from './App.vue';
 import router from './router/index.js';
 import {api} from './boot/axios.js';
+import charts from './boot/apexcharts.js';
 
 const app = createApp(App);
 
@@ -16,4 +17,5 @@ app
     .use(Quasar, { plugins: {} })
     .use(createPinia())
     .use(router)
+    .use(charts)
     .mount('#app');
