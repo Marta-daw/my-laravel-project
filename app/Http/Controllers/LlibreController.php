@@ -161,4 +161,9 @@ class LlibreController extends Controller
             'enProceso' => $llibresEnProceso
         ]);
     }
+
+    public function estadisticaCategorias()
+    {
+        
+    }
 }
