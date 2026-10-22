@@ -23,3 +23,7 @@ export function getAutor() {
 export function getResumLectures() {
     return api.get('/api/llibres/lectures');
 }
+
+export function getUltimosLibros() {
+    return api.get('/api/llibres/ultimos');
+}

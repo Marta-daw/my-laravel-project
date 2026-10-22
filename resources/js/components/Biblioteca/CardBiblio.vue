@@ -23,10 +23,11 @@
         <q-card class="col-12">
             <div class="text-h4 q-ma-sm">Descripció</div>
             <q-separator class="q-my-sm q-mx-sm bg-primary" />
-            <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
-            <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
-            <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
-            <div class="q-ma-sm text-h6">ccdwfweferij,gv erohtjeruvthvriomufiwucrtiwyutrythw</div>
+            <div class="q-ma-sm text-h6">La Biblioteca és el meu espai personal per gestionar i seguir la meva col·lecció de llibres.<br/>
+              El projecte compte amb un tauler o dashboard on és pot veure d'un cop d’ull l’estat de la meva biblioteca, quines categories són 
+              les més populars i quins són els últims llibres que s'han inclòs a la biblioteca, ajudant així a tenir mà un resum de l'estat de la meva biblioteca.<br/>
+              A més, aquest projecte comptarà amb la gestió del pròpi usuari per a poder afegir nous llibres a la col·lecció, editar-los amb funcionalitats com ara marcar llibres com a 
+              llegits i puntuar-los segons ens hagin agradat o no, eliminar-los i veure una llista de tots els llibres que actualment tenim a la nostra biblioteca.</div>
         </q-card>
     </span>
 
@@ -43,11 +44,43 @@
         </div>
         <div class="col-12 col-md-5">
             <q-card>
-                <q-card-section class="text-h6 q-mb-none"> Estat de la lectura </q-card-section>
+                <q-card-section class="text-h6">Últims llibres afegits</q-card-section>
+                <q-separator class="q-mx-sm bg-primary" />
                 <q-card-section>
-                  <div class="doughnut-card">
-                    <Doughnut :data="lecturaData" :options="chartOptions" />
-                  </div>
+                    <div v-if="carregantUltimsLlibres" class="text-grey">
+                        Carregant llibres...
+                    </div>
+
+                    <div v-else-if="errorUltimsLlibres" class="text-negative">
+                        {{ errorUltimsLlibres }}
+                    </div>
+
+                    <q-list v-else separator>
+                        <q-item
+                            v-for="llibre in ultimsLlibres"
+                            :key="llibre.id"
+                        >
+                            <q-item-section avatar>
+                                <q-icon name="menu_book" color="primary" />
+                            </q-item-section>
+
+                            <q-item-section>
+                                <q-item-label class="text-weight-high text-body1">
+                                    {{ llibre.titulo }}
+                                </q-item-label>
+
+                                <q-item-label class="text-body1 text-grey q-mb-none">
+                                    {{ autorsDelLlibre(llibre) }}
+                                </q-item-label>
+                            </q-item-section>
+                        </q-item>
+
+                        <q-item v-if="ultimsLlibres.length === 0">
+                            <q-item-section class="text-grey">
+                                Encara no hi ha llibres afegits.
+                            </q-item-section>
+                        </q-item>
+                    </q-list>
                 </q-card-section>
             </q-card>
         </div>
@@ -56,7 +89,7 @@
 
 <script setup>
 import { onMounted, computed, ref } from 'vue';
-import { getResumLectures } from '@/services/api';
+import { getResumLectures, getUltimosLibros } from '@/services/api';
 import { Bar, Doughnut } from 'vue-chartjs';
 import {
   ArcElement,
@@ -89,23 +122,9 @@ const carregant = ref(true);
 
 const categorias = ref([]);
 
-onMounted(async () => {
-    try {
-        const data = await getResumLectures();
-        totalLlibres.value = data.data.total;
-        llegits.value = data.data.leidos;
-        noLlegits.value = data.data.noLeidos;
-        enProceso.value = data.data.enProceso;
-
-        categorias.value = data.data.categorias ?? [];
-
-    } catch (err) {
-        error.value = err.response?.data?.message ?? err.message;
-        console.error('Error en carregar les dades', error.value);
-    } finally {
-        carregant.value = false;
-    }
-});
+const ultimsLlibres = ref([]);
+const carregantUltimsLlibres = ref(true);
+const errorUltimsLlibres = ref(null);
 
 const datosTarjeta = computed(() => [
     {key: 'total', label: 'Total de llibres', value: totalLlibres.value , icon: 'menu_book', color: 'primary'},
@@ -165,6 +184,48 @@ const chartOptionsBar = {
     },
   },
 };
+
+function autorsDelLlibre(llibre) {
+    if (!llibre.autores?.length) {
+        return 'Autor desconegut';
+    }
+
+    return llibre.autores
+        .map(autor =>
+            [autor.nombre, autor.apellido_1, autor.apellido_2]
+                .filter(Boolean)
+                .join(' ')
+        )
+        .join(', ');
+}
+
+onMounted(async () => {
+    try {
+        const [resumResponse, ultimsResponse] = await Promise.all([
+            getResumLectures(),
+            getUltimosLibros(),
+        ]);
+
+        const resum = resumResponse.data;
+
+        totalLlibres.value = resum.total;
+        llegits.value = resum.leidos;
+        noLlegits.value = resum.noLeidos;
+        enProceso.value = resum.enProceso;
+        categorias.value = resum.categorias ?? [];
+
+        ultimsLlibres.value = ultimsResponse.data;
+    } catch (err) {
+        error.value = err.response?.data?.message ?? err.message;
+        errorUltimsLlibres.value =
+            err.response?.data?.message ?? err.message;
+
+        console.error('Error en carregar les dades', err);
+    } finally {
+        carregant.value = false;
+        carregantUltimsLlibres.value = false;
+    }
+});
 </script>
 
 <style lang="scss" scoped>
