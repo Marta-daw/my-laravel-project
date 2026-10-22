@@ -32,6 +32,7 @@ Route::delete('/idiomas/{idioma}', [IdiomaController::class, 'destroy']);
 Route::get('/llibres', [LlibreController::class, 'index']);
 Route::get('/llibres/count', [LlibreController::class, 'contarLlibres']);
 Route::get('/llibres/lectures', [LlibreController::class, 'estadisticaLecturaAcabadaONo']);
+Route::get('/llibres/ultimos', [LlibreController::class, 'ultimosLibros']);
 Route::get('/llibres/{llibre}', [LlibreController::class, 'show']);
 Route::post('/llibres', [LlibreController::class, 'store']);
 Route::put('/llibres/{llibre}', [LlibreController::class, 'update']);

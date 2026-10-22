@@ -146,6 +146,9 @@ class LlibreController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Get the reading statistics.
+     */
     public function estadisticaLecturaAcabadaONo()
     {
         $llibresLlegits = Llibre::where('leido', 'si')->count();
@@ -167,5 +170,15 @@ class LlibreController extends Controller
             'enProceso' => $llibresEnProceso,
             'categorias' => $categorias
         ]);
+    }
+
+    public function ultimosLibros()
+    {
+        $ultimos = Llibre::with('autores', 'categorias', 'idioma')
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
+        return response()->json($ultimos);
     }
 }
