@@ -22,13 +22,13 @@ class StoreLlibreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required|string|max:255',
-            'paginas' => 'required|integer|min:1',
-            'sinopsis' => 'string',
-            'idioma_id' => 'required|exists:idiomas,id',
-            'leido' => 'required|enum:si, no, en_proceso|default:no',
+            'titulo' => ['required', 'string', 'max:255'],
+            'paginas' => ['required', 'integer', 'min:1'],
+            'sinopsis' => ['nullable', 'string'],
+            'idioma_id' => ['required', 'exists:idiomas,id'],
+            'leido' => ['required', 'in:si,no,en_proceso'],
             'puntuacion' => ['nullable', 'integer', 'between:0,5'],
-            'portada' => 'nullable|string',
+            'portada' => ['nullable', 'string', 'max:500'],
 
             'autor_id' => ['required', 'array'],
             'autor_id.*' => ['integer', 'distinct', 'exists:autors,id'],

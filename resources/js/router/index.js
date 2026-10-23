@@ -3,6 +3,7 @@ import MainLayout from '../layouts/MainLayout.vue';
 import ProjectLayout from '../layouts/ProjectLayout.vue';
 import Home from '../pages/Home.vue';
 import DashboardBiblio from '../pages/DashboardBiblio.vue';
+import LlibresPage from '../pages/LlibresPage.vue';
 
 const routes = [
   {
@@ -19,7 +20,7 @@ const routes = [
     component: ProjectLayout,
     children: [
       { path: '', component: DashboardBiblio },
-      { path: 'Principal', component: DashboardBiblio },
+      { path: '/llibres', component: LlibresPage },
     ],
   },
 ];
