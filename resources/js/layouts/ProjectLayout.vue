@@ -44,7 +44,7 @@
         >
             <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
             <q-list padding>
-                <q-item clickable v-ripple>
+                <q-item clickable v-ripple to="/biblioteca">
                 <q-item-section avatar>
                     <q-icon name="dashboard" />
                 </q-item-section>
@@ -52,15 +52,22 @@
                 <q-item-section> Dashboard </q-item-section>
                 </q-item>
 
-                <q-item active clickable v-ripple>
-                <q-item-section avatar>
-                    <q-icon name="star" />
-                </q-item-section>
-
-                <q-item-section> Star </q-item-section>
+                <q-item clickable v-ripple to="/llibres">
+                    <q-item-section avatar>
+                        <q-icon name="book" />
+                    </q-item-section>
+                    <q-item-section> Llibres </q-item-section>
                 </q-item>
 
-                <q-item clickable v-ripple>
+                <q-item active clickable v-ripple>
+                <q-item-section avatar>
+                    <q-icon name="add" />
+                </q-item-section>
+
+                <q-item-section> Afegir llibre </q-item-section>
+                </q-item>
+
+                <!-- <q-item clickable v-ripple>
                 <q-item-section avatar>
                     <q-icon name="send" />
                 </q-item-section>
@@ -76,7 +83,7 @@
                 </q-item-section>
 
                 <q-item-section> Drafts </q-item-section>
-                </q-item>
+                </q-item> -->
             </q-list>
             </q-scroll-area>
         </q-drawer>

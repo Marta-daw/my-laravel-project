@@ -12,7 +12,7 @@
                 <p> {{ item.content }} </p>
             </q-card-section>
             <q-card-actions align="right" class="q-pb-sm q-pr-sm">
-                <q-btn label="Accedir" color="primary" class="item-end" to="/biblioteca/Principal"/>
+                <q-btn label="Accedir" color="primary" class="item-end" to="/biblioteca"/>
             </q-card-actions>
         </div>
     </q-card>

@@ -8,6 +8,22 @@ export function getLlibres(params = {}) {
     return api.get('/api/llibres', { params });
 }
 
+export function getLlibreById(id) {
+    return api.get(`/api/llibres/${id}`)
+}
+
+export function createLlibre(payload) {
+    return api.post('/api/llibres', payload)
+}
+
+export function updateLlibre(id, payload) {
+    return api.put(`/api/llibres/${id}`, payload)
+}
+
+export function deleteLlibre(id) {
+    return api.delete(`/api/llibres/${id}`)
+}
+
 export function getIdioma() {
     return api.get('/api/idiomas');
 }

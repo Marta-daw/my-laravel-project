@@ -82,8 +82,8 @@ class LlibreController extends Controller
         return DB::transaction(function () use ($request) {
             $validate = $request->validated();
 
-            $autorIds = $validate['autor_id'];
-            $categoriaIds = $validate['categoria_id'];
+            $autorIds = $validate['autor_id'] ?? [];
+            $categoriaIds = $validate['categoria_id'] ?? [];
 
             unset($validate['autor_id'], $validate['categoria_id']);
 
@@ -116,11 +116,11 @@ class LlibreController extends Controller
      */
     public function update(StoreLlibreRequest $request, Llibre $llibre)
     {
-        return DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request, $llibre) {
             $validate = $request->validated();
 
-            $autorIds = $validate['autor_id'];
-            $categoriaIds = $validate['categoria_id'];
+            $autorIds = $validate['autor_id'] ?? [];
+            $categoriaIds = $validate['categoria_id'] ?? [];
 
             unset($validate['autor_id'], $validate['categoria_id']);
 
@@ -140,10 +140,14 @@ class LlibreController extends Controller
      */
     public function destroy(Llibre $llibre)
     {
-        $llibre->delete();
+        return DB::transaction(function () use ($llibre) {
+            $llibre->autors()->detach();
+            $llibre->categories()->detach();
 
-        //return response()->json(null, 204);
-        return response()->noContent();
+            $llibre->delete();
+
+            return response()->noContent();
+        });
     }
 
     /**
