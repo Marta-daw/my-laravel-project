@@ -101,7 +101,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/noMeCuentesCuentos.avif',
+                'portada' => 'noMeCuentesCuentos.avif',
             ],
             [
                 'titulo' => 'Morder la manzana',
@@ -110,7 +110,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 4,
-                'portada' => '../public/morderLaManzana.avif',
+                'portada' => 'morderLaManzana.avif',
             ],
             [
                 'titulo' => 'Nada',
@@ -119,7 +119,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 4,
-                'portada' => '../public/nada.avif',
+                'portada' => 'nada.avif',
             ],
             [
                 'titulo' => 'Voces que cuentan',
@@ -128,7 +128,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/vocesQueCuentan.avif',
+                'portada' => '/vocesQueCuentan.avif',
             ],
             [
                 'titulo' => 'Pesadilla antes de Navidad',
@@ -137,7 +137,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/pesadillaAntesDeNavidad.avif',
+                'portada' => 'pesadillaAntesDeNavidad.avif',
             ],
             [
                 'titulo' => 'El final de todos los agostos',
@@ -146,7 +146,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/elFinalDeTodosLosAgostos.avif',
+                'portada' => 'elFinalDeTodosLosAgostos.avif',
             ],
             [
                 'titulo' => 'Quiero pensar que no es demasiado tarde',
@@ -155,7 +155,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 4,
-                'portada' => '../public/quieroPensarQueNoEsDemasiado.avif',
+                'portada' => 'quieroPensarquieroPensarQueNoEsDemasiadoTarde.avif',
             ],
             [
                 'titulo' => 'El azul es un color cálido',
@@ -164,7 +164,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 4,
-                'portada' => '../public/elAzulEsUnColorCalido.avif',
+                'portada' => 'elAzulEsUnColorCálido.avif',
             ],
             [
                 'titulo' => 'Que no se olvide',
@@ -173,7 +173,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 4,
-                'portada' => '../public/queNoSeOlvide.avif',
+                'portada' => 'queNoSeOlvide.avif',
             ],
             [
                 'titulo' => 'Los f*cking 30',
@@ -182,7 +182,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/losFucking30.avif',
+                'portada' => 'losFuking30.avif',
             ],
             [
                 'titulo' => 'Cyclo',
@@ -191,7 +191,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 4,
-                'portada' => '../public/cyclo.avif',
+                'portada' => 'cyclo.avif',
             ],
             [
                 'titulo' => 'Wonder',
@@ -200,7 +200,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 1,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/wonder.avif',
+                'portada' => 'wonder.avif',
             ],
             [
                 'titulo' => 'Monstruosamente',
@@ -209,7 +209,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/monstruosamente.avif',
+                'portada' => 'monstruosamente.avif',
             ],
             [
                 'titulo' => 'Smiley',
@@ -218,7 +218,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 1,
                 'leido' => 'si',
                 'puntuacion' => 3,
-                'portada' => '../public/smiley.avif',
+                'portada' => 'smiley.avif',
             ],
             [
                 'titulo' => 'Club de lectura para corazones despistados',
@@ -227,7 +227,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/clubDeLecturaParaCorazonesDespistados.avif',
+                'portada' => 'clubDeLecturaParaCorazonesDespistados.avif',
             ],
             [
                 'titulo' => 'Lola Vendetta',
@@ -236,7 +236,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'si',
                 'puntuacion' => 5,
-                'portada' => '../public/lolaVendetta.avif',
+                'portada' => 'lolaVendetta.avif',
             ],
             [
                 'titulo' => 'Larga vida a la reina de Halloween',
@@ -245,7 +245,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'en_proceso',
                 'puntuacion' => null,
-                'portada' => '../public/largaVidaALaReinaDeHalloween.avif',
+                'portada' => 'largaVidaALaReinaDeHalloween.avif',
             ],
             [
                 'titulo' => 'Nicky, la aprendiz de bruja',
@@ -254,7 +254,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/nickyLaAprendizDeBruja.avif',
+                'portada' => 'nickyLaAprendizDeBruja.avif',
             ],
             [
                 'titulo' => 'Just Friends (Integral)',
@@ -263,7 +263,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/justFriends.avif',
+                'portada' => 'justFriendsIntegral.avif',
             ],
             // Llista 2
             [
@@ -273,7 +273,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 1,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/elPalauDeLaMitjanit.avif',
+                'portada' => 'elPalauDeLaMitjaNit.avif',
             ],
             [
                 'titulo' => 'El rey Lear',
@@ -282,7 +282,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/elReyLear.avif',
+                'portada' => 'elReyLear.avif',
             ],
             [
                 'titulo' => 'Mirall Trencat',
@@ -291,7 +291,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 1,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/mirallTrencat.avif',
+                'portada' => 'mirallTrencat.avif',
             ],
             [
                 'titulo' => 'Les Llums de Setembre',
@@ -300,7 +300,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 1,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/lesLlumsDeSetembre.avif',
+                'portada' => 'lesLlumsDeSetembre.avif',
             ],
             [
                 'titulo' => 'Felices',
@@ -309,7 +309,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/felices.avif',
+                'portada' => 'felices.avif',
             ],
             [
                 'titulo' => 'Los siete maridos de Evelyn Hugo',
@@ -318,7 +318,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/losSleteMaridosDeEvelynHugo.avif',
+                'portada' => 'losSieteMaridosDeEvelynHugo.avif',
             ],
             [
                 'titulo' => 'La Emperatriz del Mal',
@@ -327,7 +327,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/laEmperatrizDelMal.avif',
+                'portada' => 'laEmperatrizDelMal.avif',
             ],
             [
                 'titulo' => 'La veritat sobre el cas Harry Quebert',
@@ -336,7 +336,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 1,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/laVeritatSobreElCasHarryQuebert.avif',
+                'portada' => 'laVeritatSobreElCasHarryQuebert.avif',
             ],
             [
                 'titulo' => 'Nocturna',
@@ -351,7 +351,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/laVeritatSobreElCasHarryQuebert.avif',
+                'portada' => 'nocturna.avif',
             ],
             [
                 'titulo' => 'Momo',
@@ -360,7 +360,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/momo.avif',
+                'portada' => 'momo.avif',
             ],
             [
                 'titulo' => 'Retorno de las Estrellas',
@@ -369,7 +369,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/retornoDeLasEstrellas.avif',
+                'portada' => 'retornoDeLasEstrellas.avif',
             ],
             [
                 'titulo' => 'Los Mundos de Chrestomanci',
@@ -378,7 +378,7 @@ class LlibreSeeder extends Seeder
                 'idioma_id' => 2,
                 'leido' => 'no',
                 'puntuacion' => null,
-                'portada' => '../public/losMundosDeChrestomanci.avif',
+                'portada' => 'losMundosDeChrestomanci.avif',
             ],
         ];
 

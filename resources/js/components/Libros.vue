@@ -8,35 +8,47 @@
             Error: {{ error }}
         </div>
 
-        <ul v-else>
-            <li v-for="libro in libros" :key="libro.id">
-                <div class="border q-mb-md q-pa-md">
-                    <strong>{{ libro.titulo }}</strong>
-                    <p>{{ libro.paginas }} pàgines</p>
-                    <p>{{ libro.sinopsis }}</p>
-                    <p>idioma: {{ idiomas.find(idioma => idioma.id === libro.idioma_id)?.idioma }}</p>
-                    <p>leido? {{ libro.leido}}</p>
-                    <p>Puntuación: {{ libro.puntuacion }}</p>
-                    <p> Autor(s): 
-                        <span v-for="(autor, index) in libro.autores" :key="autor.id">
-                            {{ autor.nombre }} {{ autor.apellido_1 }} {{ autor.apellido_2 }}<span v-if="index < libro.autores.length - 1">, </span>
-                        </span>
-                    </p>
-                    <p> Categoria(s): 
-                        <span v-for="(categoria, index) in libro.categorias" :key="categoria.id">
-                            {{ categoria.nombre }}<span v-if="index < libro.categorias.length - 1">, </span>
-                        </span>
-                    </p>
-                </div>
-                
-            </li>
-        </ul>
+        <div v-else class="row q-col-gutter-md">
+            <div v-for="libro in libros" :key="libro.id" class="col-12 col-sm-6 col-md-3">
+                <q-card class="full-height">
+                    <q-img
+                        :src="`/${libro.portada}`"
+                        :alt="`Portada de ${libro.titulo}`"
+                        :ratio="2/3"
+                        fit="cover"
+                    />
+                    <q-card-section>
+                        <div class="text-h6">{{ libro.titulo }}</div>
+                        <div class="text-subtitle2">Pàgines: {{ libro.paginas }}</div>
+                        <div class="text-subtitle2">Sinopsis: {{ libro.sinopsis }}</div>
+                        <div class="text-subtitle2">Idioma: {{ idiomas.find(idioma => idioma.id === libro.idioma_id)?.idioma }}</div>
+                        <div class="text-subtitle2">Lleído? {{ libro.leido }}</div>
+                        <div class="text-subtitle2">Puntuació: {{ libro.puntuacion }}</div>
+                        <div class="text-subtitle1">
+                            Autor(s): 
+                            <span v-for="(autor, index) in libro.autores" :key="autor.id">
+                                {{ autor.nombre }} {{ autor.apellido_1 }} {{ autor.apellido_2 }}<span v-if="index < libro.autores.length - 1">, </span>
+                            </span>
+                        </div>
+                        <div class="text-subtitle2">
+                            Categoria(s): 
+                            <span v-for="(categoria, index) in libro.categorias" :key="categoria.id">
+                                {{ categoria.nombre }}<span v-if="index < libro.categorias.length - 1">, </span>
+                            </span>
+                        </div>
+                    </q-card-section>
+                    <q-card-actions align="right">
+                        <q-btn color="primary" label="Veure detalls" to="/detalls-llibre" />
+                    </q-card-actions>
+                </q-card>
+            </div>
+        </div>
 
         <button
             v-if="pagina < ultimaPagina"
             :disabled="cargarMas"
             @click="carregarPagina(pagina + 1)"
-            class="q-mb-md q-pa-md bg-primary text-white rounded"
+            class="q-my-md q-ml-md q-pa-md bg-primary text-white rounded"
         >
             {{ cargarMas ? 'Carregant...' : 'Carrega més llibres' }}
         </button>
