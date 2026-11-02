@@ -172,7 +172,7 @@ resources/js/
 ├── app.js                # Punto de entrada: monta Vue + Quasar + Pinia + Router
 ├── App.vue               # Componente raíz (<router-view />)
 ├── router/
-│   └── Index.js           # Definición de rutas (vue-router)
+│   └── index.js           # Definición de rutas (vue-router)
 ├── boot/
 │   └── axios.js           # Cliente Axios
 ├── services/
@@ -185,14 +185,14 @@ resources/js/
 │   ├── Home.vue
 │   ├── Home2.vue
 │   ├── AboutMe.vue
-│   └── DasboardBiblio.vue
+│   └── DashboardBiblio.vue
 ├── components/            # Componentes reutilizables
 ├── css/                   # Estilos y variables de Quasar
 ├── assets/                # Recursos del frontend
 └── i18n/                  # Configuración de idiomas
 ```
 
-Las rutas actuales del frontend son `/`, `/about`, `/Home2.vue` y `/biblioteca`. La configuración actual se encuentra en `resources/js/router/Index.js`; en Linux, el uso de mayúsculas y minúsculas en el nombre `Index.js` es significativo.
+Las rutas actuales del frontend son `/`, `/about`, `/Home2.vue`, `/biblioteca` y `/llibres`. La configuración actual se encuentra en `resources/js/router/index.js`; en Linux, el uso de mayúsculas y minúsculas en los nombres de archivo es significativo.
 
 La app de Vue se monta desde `resources/views/app.blade.php` (contiene `<div id="app"></div>` + `@vite(...)`), que se devuelve desde la ruta raíz en `routes/web.php`:
 
@@ -239,7 +239,7 @@ Route::get('/', function () {
 | `ddev exec npm run dev` | Arranca el servidor de Vite con HMR |
 | `ddev exec npm run build` | Compila los assets del frontend para producción |
 
-Actualmente `package.json` solo define los scripts `dev` y `build`. Los comandos `lint` y `format` todavía no están configurados.
+Los scripts disponibles en `package.json` son `dev`, `build`, `lint`, `format` y `format:check`.
 
 ## API disponible
 
@@ -253,7 +253,15 @@ Las rutas API se encuentran en `routes/api.php` y Laravel les añade automática
 | `PUT` | `/api/autors/{id}` | Actualiza un autor |
 | `DELETE` | `/api/autors/{id}` | Elimina un autor |
 | `GET` | `/api/categorias` | Lista de categorías |
+| `GET` | `/api/categorias/{id}` | Detalle de una categoría |
+| `POST` | `/api/categorias` | Crea una categoría |
+| `PUT` | `/api/categorias/{id}` | Actualiza una categoría |
+| `DELETE` | `/api/categorias/{id}` | Elimina una categoría |
 | `GET` | `/api/idiomas` | Lista de idiomas |
+| `GET` | `/api/idiomas/{id}` | Detalle de un idioma |
+| `POST` | `/api/idiomas` | Crea un idioma |
+| `PUT` | `/api/idiomas/{id}` | Actualiza un idioma |
+| `DELETE` | `/api/idiomas/{id}` | Elimina un idioma |
 | `GET` | `/api/llibres` | Lista de libros con relaciones |
 | `GET` | `/api/llibres/{id}` | Detalle de un libro |
 | `GET` | `/api/llibres/{id}/autors` | Autores de un libro |

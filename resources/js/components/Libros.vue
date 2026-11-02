@@ -10,7 +10,7 @@
 
         <div v-else class="row q-col-gutter-md">
             <div v-for="libro in libros" :key="libro.id" class="col-12 col-sm-6 col-md-3">
-                <q-card class="full-height">
+                <q-card class="full-height column">
                     <q-img
                         :src="`/${libro.portada}`"
                         :alt="`Portada de ${libro.titulo}`"
@@ -19,29 +19,69 @@
                     />
                     <q-card-section>
                         <div class="text-h6">{{ libro.titulo }}</div>
-                        <div class="text-subtitle2">Pàgines: {{ libro.paginas }}</div>
-                        <div class="text-subtitle2">Sinopsis: {{ libro.sinopsis }}</div>
-                        <div class="text-subtitle2">Idioma: {{ idiomas.find(idioma => idioma.id === libro.idioma_id)?.idioma }}</div>
-                        <div class="text-subtitle2">Lleído? {{ libro.leido }}</div>
-                        <div class="text-subtitle2">Puntuació: {{ libro.puntuacion }}</div>
                         <div class="text-subtitle1">
                             Autor(s): 
                             <span v-for="(autor, index) in libro.autores" :key="autor.id">
                                 {{ autor.nombre }} {{ autor.apellido_1 }} {{ autor.apellido_2 }}<span v-if="index < libro.autores.length - 1">, </span>
                             </span>
                         </div>
-                        <div class="text-subtitle2">
-                            Categoria(s): 
-                            <span v-for="(categoria, index) in libro.categorias" :key="categoria.id">
-                                {{ categoria.nombre }}<span v-if="index < libro.categorias.length - 1">, </span>
-                            </span>
-                        </div>
                     </q-card-section>
-                    <q-card-actions align="right">
-                        <q-btn color="primary" label="Veure detalls" to="/detalls-llibre" />
+                    <q-card-actions class="q-mt-auto" align="right">
+                        <q-btn flat icon="edit" />
+                        <q-btn flat icon="delete" />
+                        <q-btn color="primary" label="Veure detalls" icon="visibility" @click="obrirDetall(libro)" />
                     </q-card-actions>
                 </q-card>
             </div>
+
+            <q-dialog v-model="mostrarDetalls" persistent animate-show>
+                <q-card v-if="llibreSeleccionat" style="width: 900px; max-width: 90vw;">
+                    <div class="row no-wrap-sm">
+                        <div class="col-12 col-sm-5">
+                            <q-img
+                                :src="`/${llibreSeleccionat.portada}`"
+                                :alt="`Portada de ${llibreSeleccionat.titulo}`"
+                                :ratio="2/3"
+                                fit="cover"
+                            />
+                        </div>
+                        <div class="col-12 col-sm-7 flex column justify-between">
+                            <q-card-section class="row items-center q-pb-none">
+                                <div class="text-h6">{{ llibreSeleccionat.titulo }}</div>
+                                <q-space />
+                                <q-btn icon="close" flat round dense @click="mostrarDetalls = false" />
+                            </q-card-section>
+                            <q-separator />
+                            <q-card-section>
+                                <div class="col">
+                                    <div class="text-subtitle1 q-mb-md">
+                                        Autor(s): 
+                                        <span v-for="(autor, index) in llibreSeleccionat.autores" :key="autor.id">
+                                            {{ autor.nombre }} {{ autor.apellido_1 }} {{ autor.apellido_2 }}<span v-if="index < llibreSeleccionat.autores.length - 1">, </span>
+                                        </span>
+                                    </div>
+                                    <div class="text-subtitle2 q-mb-md">Pàgines: {{ llibreSeleccionat.paginas }}</div>
+                                    <div class="text-subtitle2 q-mb-md">Sinopsis: {{ llibreSeleccionat.sinopsis }}</div>
+                                    <div class="text-subtitle2 q-mb-md">Idioma: {{ idiomas.find(idioma => idioma.id === llibreSeleccionat.idioma_id)?.idioma }}</div>
+                                    <div class="text-subtitle2 q-mb-md">Llegit? {{ llibreSeleccionat.leido }}</div>
+                                    <div class="text-subtitle2 q-mb-md">Puntuació: {{ llibreSeleccionat.puntuacion }}</div>
+                                    <div class="text-subtitle2">
+                                        Categoria(s): 
+                                        <span v-for="(categoria, index) in llibreSeleccionat.categorias" :key="categoria.id">
+                                            {{ categoria.nombre }}<span v-if="index < llibreSeleccionat.categorias.length - 1">, </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </q-card-section>
+                            <q-separator />
+                            <q-card-actions align="right" class="text-primary">
+                                <q-btn flat label="Editar llibre" icon="edit" v-close-popup />
+                                <q-btn color="primary" label="Eliminar llibre" icon="delete" v-close-popup />
+                            </q-card-actions>
+                        </div>
+                    </div>
+                </q-card>
+            </q-dialog>
         </div>
 
         <button
@@ -72,6 +112,15 @@ const carregant = ref(true)
 const pagina = ref(1)
 const ultimaPagina = ref(1)
 const cargarMas = ref(false)
+
+//Varialbe reactiva per a controlar la visibilitat del q-dialog
+const mostrarDetalls = ref(false)
+const llibreSeleccionat = ref(null)
+
+function obrirDetall(libro) {
+    llibreSeleccionat.value = libro
+    mostrarDetalls.value = true
+}
 
 async function carregarPagina(page, substituir = false) {
     cargarMas.value = true
