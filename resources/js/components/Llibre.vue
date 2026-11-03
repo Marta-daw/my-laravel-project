@@ -98,7 +98,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getLlibres, getIdioma, getAutor, getCategoria, deleteLlibre } from '@/services/api.js'
+import { getLlibres, getIdioma, getAutor, getCategoria, deleteLlibre } from '@/services/Api.js'
 //import { api } from '@/boot/axios.js'
 
 const libros = ref([])

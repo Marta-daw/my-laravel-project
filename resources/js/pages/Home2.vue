@@ -35,10 +35,10 @@
 </template>
 
 <script setup>
-import Autors from '@/components/Autors.vue'
-import Idiomas from '@/components/Idiomas.vue'
-import Categorias from '@/components/Categorias.vue'
-import Libros from '@/components/Libros.vue'
+import Autors from '@/components/Autor.vue'
+import Idiomas from '@/components/Idioma.vue'
+import Categorias from '@/components/Categoria.vue'
+import Libros from '@/components/Llibre.vue'
 </script>
 
 <style scoped></style>

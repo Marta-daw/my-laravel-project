@@ -25,7 +25,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { getCategoria } from '@/services/api.js'
+import { getCategoria } from '@/services/Api.js'
 import { api } from '@/boot/axios.js'
 
 const categorias = ref([])

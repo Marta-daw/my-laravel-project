@@ -25,7 +25,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { getAutor } from '@/services/api.js'
+import { getAutor } from '@/services/Api.js'
 import { api } from '@/boot/axios.js'
 
 const autors = ref([])
