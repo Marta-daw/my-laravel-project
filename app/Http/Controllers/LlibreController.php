@@ -114,7 +114,7 @@ class LlibreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreLlibreRequest $request, Llibre $llibre)
+    public function update(UpdateLlibreRequest $request, Llibre $llibre)
     {
         return DB::transaction(function () use ($request, $llibre) {
             $validate = $request->validated();
@@ -129,7 +129,7 @@ class LlibreController extends Controller
             $llibre->categorias()->sync($categoriaIds);
 
             return response()->json(
-                $llibre->load(['autores', 'categorias', 'idioma']),
+                $llibre->fresh()->load(['autores', 'categorias', 'idioma']),
                 200
             );
         });
