@@ -75,8 +75,8 @@
                             </q-card-section>
                             <q-separator />
                             <q-card-actions align="right" class="text-primary">
-                                <q-btn flat label="Editar llibre" icon="edit" v-close-popup />
-                                <q-btn color="primary" label="Eliminar llibre" icon="delete" v-close-popup />
+                                <q-btn flat label="Editar llibre" icon="edit" @click="editarLlibre(llibreSeleccionat)" />
+                                <q-btn color="primary" label="Eliminar llibre" icon="delete" @click="demanarEliminacio(llibreSeleccionat)" />
                             </q-card-actions>
                         </div>
                     </div>
@@ -97,7 +97,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getLlibres, getIdioma, getAutor, getCategoria } from '@/services/api.js'
+import { useRouter } from 'vue-router'
+import { getLlibres, getIdioma, getAutor, getCategoria, deleteLlibre } from '@/services/api.js'
 //import { api } from '@/boot/axios.js'
 
 const libros = ref([])
@@ -117,11 +118,44 @@ const cargarMas = ref(false)
 const mostrarDetalls = ref(false)
 const llibreSeleccionat = ref(null)
 
+// Variables pel formulari de edició de llibres i eliminar un llibre
+const router = useRouter()
+const llibrePerEliminar = ref(null)
+const confirmacioOberta = ref(false)
+const eliminant = ref(false)
+
+// Funció per a obrir el pop up amb els detalls del llibre seleccionat
 function obrirDetall(libro) {
     llibreSeleccionat.value = libro
     mostrarDetalls.value = true
 }
 
+//Funcions per a editar un llibre existent, demanar si es vol eliminar i confirmar que s'elimina un llibre
+function editarLlibre(llibre) {
+    router.push(`/biblioteca/llibres/${llibre.id}/editar`)
+}
+
+function demanarEliminacio(llibre) {
+    llibrePerEliminar.value = llibre
+    confirmacioOberta.value = true
+}
+
+async function confirmarEliminacio() {
+    if (!llibrePerEliminar.value) return
+
+    eliminant.value = true
+    try {
+        await deleteLlibre(llibrePerEliminar.value.id)
+        libros.value = libros.value.filter(
+            (llibre) => llibre.id !== llibrePerEliminar.value.id,
+        )
+        confirmacioOberta.value = false
+    } finally {
+        eliminant.value = false
+    }
+}
+
+// Funció per a carregar més llibres un cop hem arribat al final
 async function carregarPagina(page, substituir = false) {
     cargarMas.value = true
 

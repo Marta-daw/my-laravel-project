@@ -30,4 +30,30 @@ class LlibreApiTest extends TestCase
             ->assertJsonPath('autores.0.id', $autor->id)
             ->assertJsonPath('categorias.0.id', $categoria->id);
     }
+
+    public function test_no_pot_crear_un_llibre_sense_titol(): void
+    {
+        $this->postJson('/api/llibres', [
+            'paginas' => 100,
+        ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['titulo']);
+    }
+
+    public function test_pot_crear_un_llibre(): void
+    {
+        $idioma = Idioma::factory()->create();
+        $autor = Autor::factory()->create();
+
+        $this->postJson('/api/llibres', [
+            'titulo' => 'Títol de prova',
+            'paginas' => 100,
+            'idioma_id' => $idioma->id,
+            'leido' => 'no',
+            'autor_id' => [$autor->id],
+            'categoria_id' => [],
+        ])
+            ->assertCreated()
+            ->assertJsonPath('titulo', 'Títol de prova');
+    }
 }

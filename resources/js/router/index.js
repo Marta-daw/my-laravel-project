@@ -21,6 +21,8 @@ const routes = [
     children: [
       { path: '', component: DashboardBiblio },
       { path: '/llibres', component: LlibresPage },
+      { path: 'llibres/nou', name: 'llibreNou', component: () => import('../pages/LlibreFormPage.vue') },
+      { path: 'llibres/:id/editar', name: 'llibre-editar', component: () => import('../pages/LlibreFormPage.vue') },
     ],
   },
 ];

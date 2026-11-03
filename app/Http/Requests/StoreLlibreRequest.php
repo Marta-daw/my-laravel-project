@@ -25,15 +25,15 @@ class StoreLlibreRequest extends FormRequest
             'titulo' => ['required', 'string', 'max:255'],
             'paginas' => ['required', 'integer', 'min:1'],
             'sinopsis' => ['nullable', 'string'],
-            'idioma_id' => ['required', 'exists:idiomas,id'],
+            'idioma_id' => ['required', 'integer', 'exists:idiomas,id'],
             'leido' => ['required', 'in:si,no,en_proceso'],
             'puntuacion' => ['nullable', 'integer', 'between:0,5'],
             'portada' => ['nullable', 'string', 'max:500'],
 
-            'autor_id' => ['required', 'array'],
+            'autor_id' => ['required', 'array', 'min:1'],
             'autor_id.*' => ['integer', 'distinct', 'exists:autors,id'],
 
-            'categoria_id' => ['required', 'array'],
+            'categoria_id' => ['nullable', 'array'],
             'categoria_id.*' => ['integer', 'distinct', 'exists:categorias,id'],
         ];
     }
