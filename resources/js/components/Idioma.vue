@@ -18,7 +18,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getIdioma } from '@/services/api.js'
+import { getIdioma } from '@/services/Api.js'
 import { api } from '@/boot/axios.js'
 
 const idiomas = ref([])

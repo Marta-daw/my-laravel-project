@@ -18,7 +18,7 @@
 import { ref, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 
-import Libros from '@/components/Libros.vue';
+import Libros from '@/components/Llibre.vue';
 
 </script>
 
