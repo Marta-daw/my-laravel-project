@@ -83,5 +83,5 @@ defineProps({
     idiomas: Array,
 })
 
-defineEmits(['update:obert', 'edit', 'delete', 'confirm'])
+defineEmits(['update:obert', 'edit', 'delete', 'confirm',])
 </script>

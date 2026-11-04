@@ -10,6 +10,9 @@
             v-else
             :llibre="llibre"
             :es-edicio="esEdicio"
+            :idiomas="idiomas"
+            :autors="autors"
+            :categorias="categorias"
             @submit="desar"
         />
     </q-page>
@@ -17,7 +20,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import {
     createLlibre,
     getLlibreById,
@@ -26,10 +29,11 @@ import {
 import BookForm from '@/components/Biblioteca/BookForm.vue'
 
 const route = useRoute()
-const router = useRouter()
 const llibre = ref(null)
+
 const carregant = ref(false)
-const error = ref(null)
+const error = ref()
+const desant = ref(false)
 
 const id = computed(() => route.params.id)
 const esEdicio = computed(() => Boolean(id.value))
@@ -49,13 +53,25 @@ async function carregarLlibre() {
 }
 
 async function desar(payload) {
-    if (esEdicio.value) {
-        await updateLlibre(id.value, payload)
-    } else {
-        await createLlibre(payload)
-    }
+    desant.value = true
+    error.value = {}
 
-    await router.push('/biblioteca/llibres')
+    try {
+        if (esEdicio.value) {
+            await updateLlibre(id.value, payload)
+        } else {
+            await createLlibre(payload)
+        }
+    } catch (err) {
+        if (err.response?.status === 422) {
+            error.value = err.response.data.errors ?? {}
+            return
+        }
+        
+        throw err
+    } finally {
+        desant.value = false
+    }
 }
 
 onMounted(carregarLlibre)
