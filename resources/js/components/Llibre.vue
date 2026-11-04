@@ -10,78 +10,24 @@
 
         <div v-else class="row q-col-gutter-md">
             <div v-for="libro in libros" :key="libro.id" class="col-12 col-sm-6 col-md-3">
-                <q-card class="full-height column">
-                    <q-img
-                        :src="`/${libro.portada}`"
-                        :alt="`Portada de ${libro.titulo}`"
-                        :ratio="2/3"
-                        fit="cover"
-                    />
-                    <q-card-section>
-                        <div class="text-h6">{{ libro.titulo }}</div>
-                        <div class="text-subtitle1">
-                            Autor(s): 
-                            <span v-for="(autor, index) in libro.autores" :key="autor.id">
-                                {{ autor.nombre }} {{ autor.apellido_1 }} {{ autor.apellido_2 }}<span v-if="index < libro.autores.length - 1">, </span>
-                            </span>
-                        </div>
-                    </q-card-section>
-                    <q-card-actions class="q-mt-auto" align="right">
-                        <q-btn flat icon="edit" />
-                        <q-btn flat icon="delete" />
-                        <q-btn color="primary" label="Veure detalls" icon="visibility" @click="obrirDetall(libro)" />
-                    </q-card-actions>
-                </q-card>
+                <BookCard
+                    :llibre="libro"
+                    @view="obrirDetall"
+                    @edit="editarLlibre"
+                    @delete="demanarEliminacio"
+                />
             </div>
-
-            <q-dialog v-model="mostrarDetalls" persistent animate-show>
-                <q-card v-if="llibreSeleccionat" style="width: 900px; max-width: 90vw;">
-                    <div class="row no-wrap-sm">
-                        <div class="col-12 col-sm-5">
-                            <q-img
-                                :src="`/${llibreSeleccionat.portada}`"
-                                :alt="`Portada de ${llibreSeleccionat.titulo}`"
-                                :ratio="2/3"
-                                fit="cover"
-                            />
-                        </div>
-                        <div class="col-12 col-sm-7 flex column justify-between">
-                            <q-card-section class="row items-center q-pb-none">
-                                <div class="text-h6">{{ llibreSeleccionat.titulo }}</div>
-                                <q-space />
-                                <q-btn icon="close" flat round dense @click="mostrarDetalls = false" />
-                            </q-card-section>
-                            <q-separator />
-                            <q-card-section>
-                                <div class="col">
-                                    <div class="text-subtitle1 q-mb-md">
-                                        Autor(s): 
-                                        <span v-for="(autor, index) in llibreSeleccionat.autores" :key="autor.id">
-                                            {{ autor.nombre }} {{ autor.apellido_1 }} {{ autor.apellido_2 }}<span v-if="index < llibreSeleccionat.autores.length - 1">, </span>
-                                        </span>
-                                    </div>
-                                    <div class="text-subtitle2 q-mb-md">Pàgines: {{ llibreSeleccionat.paginas }}</div>
-                                    <div class="text-subtitle2 q-mb-md">Sinopsis: {{ llibreSeleccionat.sinopsis }}</div>
-                                    <div class="text-subtitle2 q-mb-md">Idioma: {{ idiomas.find(idioma => idioma.id === llibreSeleccionat.idioma_id)?.idioma }}</div>
-                                    <div class="text-subtitle2 q-mb-md">Llegit? {{ llibreSeleccionat.leido }}</div>
-                                    <div class="text-subtitle2 q-mb-md">Puntuació: {{ llibreSeleccionat.puntuacion }}</div>
-                                    <div class="text-subtitle2">
-                                        Categoria(s): 
-                                        <span v-for="(categoria, index) in llibreSeleccionat.categorias" :key="categoria.id">
-                                            {{ categoria.nombre }}<span v-if="index < llibreSeleccionat.categorias.length - 1">, </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </q-card-section>
-                            <q-separator />
-                            <q-card-actions align="right" class="text-primary">
-                                <q-btn flat label="Editar llibre" icon="edit" @click="editarLlibre(llibreSeleccionat)" />
-                                <q-btn color="primary" label="Eliminar llibre" icon="delete" @click="demanarEliminacio(llibreSeleccionat)" />
-                            </q-card-actions>
-                        </div>
-                    </div>
-                </q-card>
-            </q-dialog>
+            
+            <BookDialogs
+                v-model:obert="dialogObert"
+                :tipus="tipusDialog"
+                :llibre="llibreSeleccionat"
+                :loading="eliminant"
+                :idiomas="idiomas"
+                @edit="editarLlibre"
+                @delete="demanarEliminacio"
+                @confirm="confirmarEliminacio"
+            />
         </div>
 
         <button
@@ -99,6 +45,8 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getLlibres, getIdioma, getAutor, getCategoria, deleteLlibre } from '@/services/Api.js'
+import BookCard from '@/components/Biblioteca/BookCard.vue'
+import BookDialogs from '@/components/Biblioteca/BookDialogs.vue'
 //import { api } from '@/boot/axios.js'
 
 const libros = ref([])
@@ -115,19 +63,20 @@ const ultimaPagina = ref(1)
 const cargarMas = ref(false)
 
 //Varialbe reactiva per a controlar la visibilitat del q-dialog
-const mostrarDetalls = ref(false)
 const llibreSeleccionat = ref(null)
+const dialogObert = ref(false)
+const tipusDialog = ref(null)
 
 // Variables pel formulari de edició de llibres i eliminar un llibre
 const router = useRouter()
 const llibrePerEliminar = ref(null)
-const confirmacioOberta = ref(false)
 const eliminant = ref(false)
 
 // Funció per a obrir el pop up amb els detalls del llibre seleccionat
-function obrirDetall(libro) {
-    llibreSeleccionat.value = libro
-    mostrarDetalls.value = true
+function obrirDetall(llibre) {
+    llibreSeleccionat.value = llibre
+    tipusDialog.value = 'detalls'
+    dialogObert.value = true
 }
 
 //Funcions per a editar un llibre existent, demanar si es vol eliminar i confirmar que s'elimina un llibre
@@ -137,7 +86,8 @@ function editarLlibre(llibre) {
 
 function demanarEliminacio(llibre) {
     llibrePerEliminar.value = llibre
-    confirmacioOberta.value = true
+    tipusDialog.value = 'eliminar'
+    dialogObert.value = true
 }
 
 async function confirmarEliminacio() {
@@ -149,7 +99,7 @@ async function confirmarEliminacio() {
         libros.value = libros.value.filter(
             (llibre) => llibre.id !== llibrePerEliminar.value.id,
         )
-        confirmacioOberta.value = false
+        dialogObert.value = false
     } finally {
         eliminant.value = false
     }

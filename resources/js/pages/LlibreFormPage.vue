@@ -22,7 +22,7 @@ import {
     createLlibre,
     getLlibreById,
     updateLlibre,
-} from '@/services/api'
+} from '@/services/Api.js'
 import BookForm from '@/components/Biblioteca/BookForm.vue'
 
 const route = useRoute()

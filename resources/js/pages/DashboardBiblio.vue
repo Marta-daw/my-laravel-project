@@ -1,7 +1,7 @@
 <template>
     <q-page class="q-pa-none">
         <div class="row q-pa-md">
-            <h1 class="text-h4 q-mb-md">La Biblioteca</h1>
+            <h1 class="text-h4 q-mb-md text-bold">La Biblioteca</h1>
             <q-btn
                 class="q-ml-auto q-mb-md"
                 outline

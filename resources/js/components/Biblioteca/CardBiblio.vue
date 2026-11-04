@@ -89,7 +89,7 @@
 
 <script setup>
 import { onMounted, computed, ref } from 'vue';
-import { getResumLectures, getUltimosLibros } from '@/services/api';
+import { getResumLectures, getUltimosLibros } from '@/services/Api.js';
 import { Bar, Doughnut } from 'vue-chartjs';
 import {
   ArcElement,
