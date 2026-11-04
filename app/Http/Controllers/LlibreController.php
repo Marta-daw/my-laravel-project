@@ -141,8 +141,8 @@ class LlibreController extends Controller
     public function destroy(Llibre $llibre)
     {
         return DB::transaction(function () use ($llibre) {
-            $llibre->autors()->detach();
-            $llibre->categories()->detach();
+            $llibre->autores()->detach();
+            $llibre->categorias()->detach();
 
             $llibre->delete();
 

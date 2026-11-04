@@ -43,3 +43,7 @@ export function getResumLectures() {
 export function getUltimosLibros() {
     return api.get('/api/llibres/ultimos');
 }
+
+export function crearAutor(payload) {
+    return api.post('/api/autors', payload)
+}
