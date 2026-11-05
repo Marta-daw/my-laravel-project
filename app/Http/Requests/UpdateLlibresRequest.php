@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateLlibreRequest extends FormRequest
+class UpdateLlibresRequest extends FormRequest
 {
     public function authorize(): bool
     {
