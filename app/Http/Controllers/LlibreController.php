@@ -22,10 +22,6 @@ class LlibreController extends Controller
      */
     public function index(Request $request)
     {
-        //return Llibre::all();
-        // $llibres = Llibre::with('autores', 'categorias', 'idioma')->get();
-        // return response()->json($llibres);
-
         // Definir los campos a usar para ordenar.
         $allowedSorts = ['titulo', 'created_at'];
 

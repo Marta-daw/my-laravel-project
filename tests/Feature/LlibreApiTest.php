@@ -45,15 +45,16 @@ class LlibreApiTest extends TestCase
         $idioma = Idioma::factory()->create();
         $autor = Autor::factory()->create();
 
-        $this->postJson('/api/llibres', [
-            'titulo' => 'Títol de prova',
-            'paginas' => 100,
-            'idioma_id' => $idioma->id,
-            'leido' => 'no',
-            'autor_id' => [$autor->id],
+         $payload = [
+            'titulo' => 'Títol', 'paginas' => 100, 'sinopsis' => null,
+            'idioma_id' => Idioma::factory()->create()->id,
+            'leido' => 'no', 'puntuacion' => null,
+            'autor_id' => [Autor::factory()->create()->id],
             'categoria_id' => [],
-        ])
+        ];
+
+        $this->postJson('/api/llibres', $payload)
             ->assertCreated()
-            ->assertJsonPath('titulo', 'Títol de prova');
+            ->assertJsonPath('titulo', 'Títol');
     }
 }
