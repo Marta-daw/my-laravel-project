@@ -1,7 +1,7 @@
 <template>
     <q-card class="full-height column">
         <q-img
-            :src="`/${llibre.portada}`"
+            :src="llibre.portada ? `/storage/${llibre.portada}` : '/images/portada-placeholder.svg'"
             :alt="`Portada de ${llibre.titulo}`"
             :ratio="2 / 3"
             fit="cover"
