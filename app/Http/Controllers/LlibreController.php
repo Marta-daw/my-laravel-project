@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 use App\Http\Requests\StoreLlibreRequest;
+use App\Http\Requests\UpdateLlibresRequest;
 
 use App\Models\Llibre;
 use App\Models\Idioma;
@@ -87,6 +90,12 @@ class LlibreController extends Controller
 
             unset($validate['autor_id'], $validate['categoria_id']);
 
+            $portada = $request->file('portada');
+
+            if ($portada) {
+                $validate['portada'] = $portada->store('portades', 'public');
+            }
+
             $llibre = Llibre::create($validate);
 
             $llibre->autores()->sync($autorIds);
@@ -114,7 +123,7 @@ class LlibreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLlibreRequest $request, Llibre $llibre)
+    public function update(UpdateLlibresRequest $request, Llibre $llibre)
     {
         return DB::transaction(function () use ($request, $llibre) {
             $validate = $request->validated();
@@ -123,6 +132,14 @@ class LlibreController extends Controller
             $categoriaIds = $validate['categoria_id'] ?? [];
 
             unset($validate['autor_id'], $validate['categoria_id']);
+
+            if ($request->hasFile('portada')) {
+                if ($llibre->portada) {
+                    Storage::disk('public')->delete($llibre->portada);
+                }
+
+                $validate['portada'] = $request->file('portada')->store('portades', 'public');
+            }
 
             $llibre ->update($validate);
             $llibre->autores()->sync($autorIds);

@@ -28,7 +28,7 @@ class StoreLlibreRequest extends FormRequest
             'idioma_id' => ['required', 'integer', 'exists:idiomas,id'],
             'leido' => ['required', 'in:si,no,en_proceso'],
             'puntuacion' => ['nullable', 'integer', 'between:0,5'],
-            'portada' => ['nullable', 'string', 'max:500'],
+            'portada' => ['nullable', 'file', 'image', 'mimes:jpg,jpeg,png,avif,webp', 'max:5120',],
 
             'autor_id' => ['required', 'array', 'min:1'],
             'autor_id.*' => ['integer', 'distinct', 'exists:autors,id'],

@@ -78,7 +78,19 @@
                 <q-input v-model.number="form.puntuacion" label="Puntuació (1-5)" type="number" filled />
             </div>
             <div class="col-4">
-                <q-input v-model="form.portada" label="Portada (URL)" filled />
+                <q-img
+                    v-if="portadaActual"
+                    :src="`/storage/${portadaActual}`"
+                    alt="Portada actual"
+                    style="max-width: 150px"
+                />
+                <!-- <q-input v-model="form.portada" label="Portada (URL)" filled /> -->
+                <q-file v-model="form.portada" label="Portada" filled counter :max-files="1" accept=".jpg, .jpeg, .png, .avif, .webp">
+                    <!-- Icona de clip opcional a l'esquerra -->
+                    <template v-slot:prepend>
+                        <q-icon name="attach_file" />
+                    </template>
+                </q-file>
             </div>
         </div>
 
@@ -108,6 +120,8 @@ const idiomas = ref([])
 const autors = ref([])
 const categorias = ref([])
 
+const portadaActual = ref(null)
+
 const props = defineProps({
     llibre: {
         type: Object,
@@ -131,7 +145,7 @@ const form = reactive({
     idioma_id: null,
     leido: 'no',
     puntuacion: null,
-    portada: '',
+    portada: null,
     autor_id: [],
     categoria_id: [],
 })
@@ -141,17 +155,19 @@ watch(
     (llibre) => {
         if (!llibre) return
 
-        Object.assign(form, {
+       Object.assign(form, {
             titulo: llibre.titulo ?? '',
             paginas: llibre.paginas ?? null,
             sinopsis: llibre.sinopsis ?? '',
             idioma_id: llibre.idioma_id ?? llibre.idioma?.id ?? null,
             leido: llibre.leido ?? 'no',
             puntuacion: llibre.puntuacion ?? null,
-            portada: llibre.portada ?? '',
+            portada: null,
             autor_id: (llibre.autores ?? []).map((autor) => autor.id),
             categoria_id: (llibre.categorias ?? []).map((categoria) => categoria.id),
         })
+
+        portadaActual.value = llibre.portada ?? null
     },
     { immediate: true },
 )
@@ -180,19 +196,22 @@ async function carregarOpcions() {
 }
 
 function enviar() {
-    const payload = {
-        titulo: form.titulo,
-        paginas: Number(form.paginas),
-        sinopsis: form.sinopsis || null,
-        idioma_id: Number(form.idioma_id),
-        leido: form.leido,
-        puntuacion: form.puntuacion === null ? null : Number(form.puntuacion),
-        portada: form.portada || null,
-        autor_id: form.autor_id.map(Number),
-        categoria_id: form.categoria_id.map(Number),
+    const data = new FormData()
+
+    data.append('titulo', form.titulo)
+    data.append('paginas', String(Number(form.paginas)))
+    data.append('sinopsis', form.sinopsis || '')
+    data.append('idioma_id', String(Number(form.idioma_id)))
+    data.append('leido', form.leido)
+    data.append('puntuacion', form.puntuacion === null ? '' : String(Number(form.puntuacion)))
+    form.autor_id.forEach(id => data.append('autor_id[]', String(Number(id))))
+    form.categoria_id.forEach(id => data.append('categoria_id[]', String(Number(id))))
+
+    if (form.portada instanceof File) {
+        data.append('portada', form.portada)
     }
 
-    emit('submit', payload)
+    emit('submit', data)
 }
 
 async function afegirAutor(autor) {

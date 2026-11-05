@@ -12,12 +12,13 @@ export function getLlibreById(id) {
     return api.get(`/api/llibres/${id}`)
 }
 
-export function createLlibre(payload) {
-    return api.post('/api/llibres', payload)
+export function createLlibre(formData) {
+    return api.post('/api/llibres', formData)
 }
 
-export function updateLlibre(id, payload) {
-    return api.put(`/api/llibres/${id}`, payload)
+export function updateLlibre(id, formData) {
+    formData.append('_method', 'PUT')
+    return api.post(`/api/llibres/${id}`, formData)
 }
 
 export function deleteLlibre(id) {

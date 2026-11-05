@@ -8,7 +8,7 @@
             <div class="row no-wrap-sm">
                 <div class="col-12 col-sm-5">
                     <q-img
-                        :src="`/${llibre.portada}`"
+                        :src="llibre.portada ? `/storage/${llibre.portada}` : '/images/portada-placeholder.svg'"
                         :alt="`Portada de ${llibre.titulo}`"
                         :ratio="2/3"
                         fit="cover"
