@@ -11,7 +11,7 @@
 
 - **Backend:** [Laravel](https://laravel.com) 13
 - **Frontend:** [Vue 3](https://vuejs.org) + [Quasar](https://quasar.dev) (vía Vite)
-- **Estado del frontend:** Vue Router + Pinia + Axios
+- **Estado y comunicación del frontend:** Vue Router + Pinia + Axios
 - **Estilos:** Quasar + Tailwind CSS
 - **PHP del entorno DDEV:** 8.4
 - **Node.js del entorno DDEV:** 24
@@ -169,15 +169,17 @@ El servidor de Vite está configurado para escuchar en `0.0.0.0:5173`. DDEV expo
 
 ```
 resources/js/
-├── app.js                # Punto de entrada: monta Vue + Quasar + Pinia + Router
-├── App.vue               # Componente raíz (<router-view />)
+├── app.js                # Monta Vue + Quasar + Pinia + Router
+├── App.vue               # Componente raíz
 ├── router/
-│   └── index.js           # Definición de rutas (vue-router)
+│   └── Index.js           # Definición de rutas
 ├── boot/
-│   └── axios.js           # Cliente Axios
+│   ├── axios.js           # Cliente Axios
+│   └── apexcharts.js      # Configuración de gráficos
 ├── services/
-│   └── api.js             # Llamadas al backend
-├── stores/                # Stores de Pinia
+│   └── Api.js             # Llamadas al backend
+├── composables/
+│   └── UseLlibres.js      # Estado y carga de libros reutilizable
 ├── layouts/
 │   ├── MainLayout.vue      # Layout principal
 │   └── ProjectLayout.vue   # Layout de la biblioteca
@@ -185,14 +187,34 @@ resources/js/
 │   ├── Home.vue
 │   ├── Home2.vue
 │   ├── AboutMe.vue
-│   └── DashboardBiblio.vue
-├── components/            # Componentes reutilizables
-├── css/                   # Estilos y variables de Quasar
-├── assets/                # Recursos del frontend
-└── i18n/                  # Configuración de idiomas
+│   ├── DashboardBiblio.vue
+│   ├── LlibresPage.vue
+│   └── LlibreFormPage.vue
+├── components/            # Componentes de libros, autores, categorías y layouts
+└── css/                   # Estilos globales y variables de Quasar
 ```
 
-Las rutas actuales del frontend son `/`, `/about`, `/Home2.vue`, `/biblioteca` y `/llibres`. La configuración actual se encuentra en `resources/js/router/index.js`; en Linux, el uso de mayúsculas y minúsculas en los nombres de archivo es significativo.
+Las rutas actuales del frontend son:
+
+| Ruta | Función |
+|---|---|
+| `/` | Página de inicio |
+| `/about` | Información personal |
+| `/Home2.vue` | Página de prueba de conexión |
+| `/biblioteca` | Dashboard de la biblioteca |
+| `/llibres` | Lista de libros |
+| `/biblioteca/llibres/nou` | Crear un libro |
+| `/biblioteca/llibres/{id}/editar` | Editar un libro |
+
+La configuración se encuentra en `resources/js/router/Index.js`; en Linux, el uso de mayúsculas y minúsculas en los nombres de archivo es significativo.
+
+La biblioteca permite listar libros paginados, consultar sus relaciones, ver el detalle, crear, editar y eliminar libros. Las portadas se suben como archivos de imagen y se guardan en `storage/app/public/portades`; para servirlas desde el navegador es necesario crear el enlace simbólico:
+
+```bash
+ddev artisan storage:link
+```
+
+La API devuelve el campo `portada_url` para que las cards, el detalle y el formulario utilicen una URL pública común. Si no hay portada, el frontend muestra una imagen de sustitución.
 
 La app de Vue se monta desde `resources/views/app.blade.php` (contiene `<div id="app"></div>` + `@vite(...)`), que se devuelve desde la ruta raíz en `routes/web.php`:
 
@@ -265,11 +287,15 @@ Las rutas API se encuentran en `routes/api.php` y Laravel les añade automática
 | `GET` | `/api/llibres` | Lista de libros con relaciones |
 | `GET` | `/api/llibres/{id}` | Detalle de un libro |
 | `GET` | `/api/llibres/{id}/autors` | Autores de un libro |
-| `GET` | `/api/llibres/count` | Número total de libros |
 | `GET` | `/api/llibres/lectures` | Estadísticas del estado de lectura |
+| `GET` | `/api/llibres/ultimos` | Últimos libros creados |
 | `POST` | `/api/llibres` | Crea un libro |
 | `PUT` | `/api/llibres/{id}` | Actualiza un libro |
 | `DELETE` | `/api/llibres/{id}` | Elimina un libro |
+
+La lista de libros acepta los parámetros `search`, `sort` (`titulo` o `created_at`) y `per_page` (entre 1 y 50). La respuesta está paginada.
+
+Para crear y actualizar libros se envían los campos del formulario mediante `multipart/form-data`. El frontend utiliza `POST` con `_method=PUT` para actualizar cuando puede incluir una portada.
 
 > Las operaciones CRUD son actualmente públicas. Sanctum está instalado, pero todavía no se aplica como middleware de autenticación a estas rutas.
 
@@ -294,6 +320,28 @@ Exportar / importar la base de datos:
 ddev export-db --file=backup.sql.gz
 ddev import-db --file=backup.sql.gz
 ```
+
+Las migraciones crean las tablas de libros, autores, categorías, idiomas y sus tablas intermedias. Los seeders proporcionan datos iniciales para la biblioteca.
+
+## Pruebas y calidad
+
+Las pruebas Feature actuales se encuentran en `tests/Feature/LlibreApiTest.php` e incluyen:
+
+- Consulta de un libro con autores y categorías.
+- Validación de creación sin título.
+- Creación correcta de un libro.
+
+Comandos disponibles:
+
+```bash
+ddev artisan test
+ddev exec vendor/bin/pint --test
+ddev exec npm run lint
+ddev exec npm run format:check
+ddev exec npm run build
+```
+
+El script de lint requiere una configuración compatible con la versión de ESLint instalada (`eslint.config.js`, `.mjs` o `.cjs`). Si esa configuración no existe, ESLint no puede ejecutarse aunque las dependencias estén instaladas.
 
 ## URLs útiles
 
