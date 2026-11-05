@@ -78,14 +78,8 @@
                 <q-input v-model.number="form.puntuacion" label="Puntuació (1-5)" type="number" filled />
             </div>
             <div class="col-4">
-                <q-img
-                    v-if="portadaActual"
-                    :src="`/storage/${portadaActual}`"
-                    alt="Portada actual"
-                    style="max-width: 150px"
-                />
                 <!-- <q-input v-model="form.portada" label="Portada (URL)" filled /> -->
-                <q-file v-model="form.portada" label="Portada" filled counter :max-files="1" accept=".jpg, .jpeg, .png, .avif, .webp">
+                <q-file v-model="form.portada" label="Portada" filled counter :max-files="1" accept=".jpg, .jpeg, .png, .avif, .webp" :display-value="nomPortada">
                     <!-- Icona de clip opcional a l'esquerra -->
                     <template v-slot:prepend>
                         <q-icon name="attach_file" />
@@ -109,7 +103,7 @@
 </template>
 
 <script setup>
-import { reactive, watch, ref, onMounted } from 'vue'
+import { reactive, watch, ref, computed, onMounted } from 'vue'
 import { getIdioma, getAutor, getCategoria, crearAutor } from '@/services/Api.js'
 
 import AutorDialog from '@/components/Biblioteca/AutorDialog.vue'
@@ -195,6 +189,18 @@ async function carregarOpcions() {
     }
 }
 
+const nomPortada = computed(() => {
+    if (form.portada instanceof File) {
+        return form.portada.name
+    }
+
+    if (portadaActual.value) {
+        return portadaActual.value.split('/').pop()
+    }
+
+    return ''
+})
+
 function enviar() {
     const data = new FormData()
 
@@ -216,7 +222,7 @@ function enviar() {
 
 async function afegirAutor(autor) {
     try {
-        const response = await createAutor(autor)
+        const response = await crearAutor(autor)
         const autorCreat = response.data
 
         const autorNou = {

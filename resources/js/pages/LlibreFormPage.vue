@@ -20,7 +20,8 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { Notify } from 'quasar'
 import {
     createLlibre,
     getLlibreById,
@@ -29,10 +30,12 @@ import {
 import BookForm from '@/components/Biblioteca/BookForm.vue'
 
 const route = useRoute()
+const router = useRouter()
+
 const llibre = ref(null)
 
 const carregant = ref(false)
-const error = ref()
+const error = ref(null)
 const desant = ref(false)
 
 const id = computed(() => route.params.id)
@@ -54,21 +57,42 @@ async function carregarLlibre() {
 
 async function desar(payload) {
     desant.value = true
-    error.value = {}
+    error.value = null
 
     try {
         if (esEdicio.value) {
             await updateLlibre(id.value, payload)
+
+            Notify.create({
+                type: 'positive',
+                message: 'Llibre actualitzat correctament',
+            })
         } else {
             await createLlibre(payload)
+
+            Notify.create({
+                type: 'positive',
+                message: 'Llibre creat correctament',
+            })
         }
+
+        await router.push('/llibres')
     } catch (err) {
         if (err.response?.status === 422) {
-            error.value = err.response.data.errors ?? {}
+            error.value = Object.values(err.response.data.errors ?? {})
+                .flat()
+                .join(' ')
+
             return
         }
-        
-        throw err
+
+        error.value = err.response?.data?.message
+            ?? 'No s’ha pogut desar el llibre.'
+
+        Notify.create({
+            type: 'negative',
+            message: error.value,
+        })
     } finally {
         desant.value = false
     }
